@@ -1,0 +1,48 @@
+<?
+$imid = getMainImage($key,2);
+$img = getResizeImageById($imid["id"],"k",array("k"=>"215"),$imid["format"]);
+if($ind == 1)
+{
+	$z = 0;
+
+	?>
+<div class="listitem"><ul class="lsnn margin-bottom">
+	<?
+}
+$z++;
+?>
+		
+			<li class="itembg R2D2 element" <?=($z == 3 ? "style='margin-right: 0px;'" : "")?>><div class="hovers_element">
+				<div class="prewiev_pictures">
+					<a class="link" href="/<?=$value["url"]?>"><img class="item_img" border="0" src="<?=$img?>"  alt="<?=$value["name"]?>" title="<?=$value["name"]?>"></a>
+				</div>
+				<h4><a href="/<?=$value["url"]?>" class="item_title" title="<?=$value["name"]?>">
+					<span><?=$value["name"]?><span class="white_shadow"></span></span>
+				</a></h4></div>
+			</li>
+		
+		
+		
+		<?
+			if($z == 3)
+			{
+				//print "</ul>";
+				$z = 0;
+			}
+if($ind == $gcount)
+{
+	?>
+		</ul></div>
+
+
+	<?
+	global $seo_text;
+	?>
+	<p style="font-size:10px;"><?=htmlspecialchars_decode($seo_text)?></p>
+	<?
+}
+?>
+
+
+	
+	

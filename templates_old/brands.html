@@ -1,0 +1,194 @@
+<?php
+$images = getImages($brandrow["id"],7);
+
+global $base_currency;
+
+$sql_text = "SELECT goods.*,IF(catalog.one_name != '',catalog.one_name,catalog.name) as cname,brands.name as brandname,brands.urlname as brandurl,goods.id as gid,goods.currency as gcurrency,
+            IF(goods.price_action > 0,goods.price_action,goods.price) * (SELECT course FROM currency_course WHERE from_currency = gcurrency AND to_currency = $base_currency) as vprice,
+			(SELECT id FROM images WHERE source = 3 AND parentid = goods.id AND is_main = 1  LIMIT 0,1) as imid,
+			(SELECT format FROM images WHERE source = 3 AND parentid = goods.id AND is_main = 1  LIMIT 0,1) as imformat
+	   FROM goods
+        INNER JOIN catalog ON catalog.id = goods.parentid
+		LEFT JOIN brands ON brands.id = goods.brand
+        WHERE goods.brand = '".$brandrow["id"]."' AND goods.goodsid = 0 AND goods.price > 0 ORDER BY  "._SORT_NAME;
+	
+$count_sql_str = "SELECT count(goods.id)
+	   FROM goods
+        INNER JOIN catalog ON catalog.id = goods.parentid
+		LEFT JOIN brands ON brands.id = goods.brand
+       WHERE goods.brand = '".$brandrow["id"]."' AND goods.goodsid = 0 AND goods.price > 0";
+		
+		require("inc/paging.php");
+	
+  $sql_text = $sql_text.$limit;
+
+  
+  global $db; 
+  $products = dbQuery($sql_text,$db);
+
+if(isset($images[0])) { ?>
+<div class="promo-box">
+			<a href="#"><img src="/images/files/<?=$images[0]["image"]?>" alt="" /></a>
+</div>
+<?php } ?>
+		<div class="wsbw">
+			<div class="side-barr">
+				<div class="side-barr-filter jNice">
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Размер
+						</div>
+						<div class="size-box">
+							<div class="size-box-coll">
+								<label><input type="checkbox" checked />Все</label><br/>
+								<label><input type="checkbox" />XS</label><br/>
+								<label><input type="checkbox" />S</label><br/>
+								<label><input type="checkbox" />M</label><br/>
+							</div>
+							<div class="size-box-coll last">
+								<label><input type="checkbox" />L</label><br/>
+								<label><input type="checkbox" />XL</label><br/>
+								<label><input type="checkbox" />XXl</label><br/>
+								<label><input type="checkbox" />XXXl</label><br/>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="main-sep nm"></div>
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Цена
+						</div>
+						<div class="filter-listed">
+							<input type="hidden"/>
+							<ul>
+								<li><a data-filter-id="1" href="#">До 1000 грн.</a></li>
+								<li><a data-filter-id="2" href="#">1000 - 2500 грн.</a></li>
+								<li><a data-filter-id="3" href="#">2500 - 5000 грн.</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="main-sep nm"></div>
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Цвет
+						</div>
+						<div class="filter-listed colorType">
+							<input type="hidden"/>
+							<ul id="colorSlider" class="jcarousel-skin-tango1">
+								<li><a style="background:#231f20" data-filter-id="1" href="#"></a></li>
+								<li><a style="background:#008cd2" data-filter-id="2" href="#"></a></li>
+								<li><a style="background:#e40090" data-filter-id="3" href="#"></a></li>
+								<li><a style="background:#ff7d00" data-filter-id="4" href="#"></a></li>
+								<li><a style="background:#ffe100" data-filter-id="5" href="#"></a></li>
+								<li><a style="background:#FFF;border:1px solid #d4d4d4; width:12px; height:12px;" data-filter-id="6" href="#"></a></li>
+								<li><a style="background:#00ff0c" data-filter-id="7" href="#"></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="main-sep nm"></div>
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Сезон
+						</div>
+						<div class="filter-listed">
+							<input type="hidden"/>
+							<ul>
+								<li><a data-filter-id="1" href="#">Весна - лето 2013</a></li>
+								<li><a data-filter-id="2" href="#">Осень - зима</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="main-sep"></div>
+			</div>
+			<div class="side-content">	
+				<div class="catalog-return-filter">
+					<div class="catalog-return-filter-sort">
+						<a href="#">ПО Названию</a>
+						<a href="#">По Цене</a>
+						<a class="active" href="#">по Популярности</a>
+					</div>
+					<div class="catalog-return-filter-show">
+						Показать по:   
+						<a class="active" href="#">16</a>
+						<a href="#">32</a>
+						<a href="#">Все</a>                 
+					</div>
+					<div class="catalog-return-filter-pagination">
+						<ul>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">6</a></li>
+							<li><a href="#">7</a></li>
+							<li><a href="#">8</a></li>
+							<li><a href="#">9</a></li>
+							<li><a href="#">10</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="main-sep"></div>
+				<div class="catalog-box">
+				<?php $ind = 0; foreach($products as $item) { $ind++; 
+				
+				$item["show_price"] = get_price($item["price"],_DISPLAY_CURRENCY,$item["id"],$item["currency"]);
+				$item["show_price_action"]  = get_price($item["price_action"],_DISPLAY_CURRENCY,$item["id"],$item["currency"]);
+				$item["currency_symbol"] = $currency_array[_DISPLAY_CURRENCY]["shortname"];
+				$item["tovar_url"] = get_product_url($item);
+				
+				$img =  getResizeImageById($item["imid"],"h",array("height"=>163),$item["imformat"]);
+				?>
+					<div class="catalog-box-item<?=($ind == 4 ? "" : "")?>">
+						<a href="<?=$item["tovar_url"]?>"> 
+							<div class="catalog-box-item-img">
+								<span class="vfix"></span><img src="<?=$img?>" alt=""/>
+							</div>
+							<div class="catalog-box-item-title">
+								<span class="vfix"></span><span><?=$item["name"]?></span> 
+							</div>
+							<div class="catalog-box-item-dscr">
+								<?=$item["description"]?>
+							</div>
+							<div class="catalog-box-item-price">
+								<?=$item["show_price"]?>&nbsp;<?=$item["currency_symbol"]?>
+							</div>
+						</a>
+						<div class="main-sep"></div>
+					</div>
+					<?php if($ind == 4) {  $ind = 0; } } ?>
+					<div class="clear"></div>
+				</div>
+				<div class="catalog-return-filter">
+					<div class="catalog-return-filter-show">
+						Показать по:   
+						<a class="active" href="#">16</a>
+						<a href="#">32</a>
+						<a href="#">Все</a>                 
+					</div>
+					<div class="catalog-return-filter-pagination">
+						<ul>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">6</a></li>
+							<li><a href="#">7</a></li>
+							<li><a href="#">8</a></li>
+							<li><a href="#">9</a></li>
+							<li><a href="#">10</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="main-sep"></div>
+				<div class="page-dscr">
+					<div class="ctext">
+						<?=htmlspecialchars_decode($brandrow["body"],ENT_QUOTES)?>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>

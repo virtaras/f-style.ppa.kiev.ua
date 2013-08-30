@@ -1,0 +1,138 @@
+<div class="main">
+		<?=html("default-promo-text")?>
+		<div class="slider">
+			<ul id="slider">
+			<?php
+			$arr = getImages(63,1);
+			foreach($arr as $image)
+			{
+				?>
+				<li>
+					<a href="#">
+						<img src="/images/files/<?=$image["image"]?>" alt=""/>
+					</a>
+				</li>
+				<?
+			}
+			?>
+			</ul>
+		</div>
+		<div class="discount-promo-box">
+			<div class="discount-promo-box-item">
+				<a href="#">
+					<div class="discount-promo-box-img">
+						<img src="/templates/images/t_img3.png" alt=""/>
+					</div>
+					<div class="discount-promo-box-item-text">
+						<span style="color:#393937; font-size:20px; font-family: 'officinasansbookcregular';"><b style="font-family: 'officinasansboldcregular';">Платья и</b> костюмы</span><br/>
+						<span style="color:#686868; font-size:12px; font-family: 'officinasansbookcregular';">сезонные скидки до <span style="color:#d7523e;">50%</span></span>
+					</div>
+				</a>
+			</div>
+			<div class="discount-promo-box-item border">
+				<a href="#">
+					<div class="discount-promo-box-img">
+						<img src="/templates/images/t_img4.png" alt=""/>
+					</div>
+					<div class="discount-promo-box-item-text">
+						<span style="color:#393937; font-size:20px; font-family: 'officinasansbookcregular';"><b style="font-family: 'officinasansboldcregular';">Платья и</b> костюмы</span><br/>
+						<span style="color:#686868; font-size:12px; font-family: 'officinasansbookcregular';">сезонные скидки до <span style="color:#d7523e;">50%</span></span>
+					</div>
+				</a>
+			</div>
+			<div class="discount-promo-box-item last border">
+				<a href="#">
+					<div class="discount-promo-box-img">
+						<img src="/templates/images/t_img5.png" alt=""/>
+					</div>
+					<div class="discount-promo-box-item-text">
+						<span style="color:#393937; font-size:20px; font-family: 'officinasansbookcregular';"><b style="font-family: 'officinasansboldcregular';">Платья и</b> костюмы</span><br/>
+						<span style="color:#686868; font-size:12px; font-family: 'officinasansbookcregular';">сезонные скидки до <span style="color:#d7523e;">50%</span></span>
+					</div>
+				</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="main-sep"></div>
+		<div class="last-wards-box">
+			<div class="last-wards-box-title">
+				Последние поступления
+			</div>
+			<ul id="mycarousel" class="jcarousel-skin-tango">
+			<?php
+			$arr = get_products(0,FALSE,8,""," ORDER BY goods.r1197 DESC, goods.id DESC, rand()");
+			foreach($arr as $tovar)
+			{
+			$img =  getResizeImageById($tovar["imid"],"h",array("height"=>163),$tovar["imformat"]);
+			?>
+				<li>
+					<div class="last-wards-box-item">
+						<a href="<?=$tovar["tovar_url"]?>">
+							<div class="last-wards-box-item-img">
+								<img src="<?=$img?>" alt="<?=$tovar["name"]?>"/>
+							</div>
+							<div class="last-wards-box-item-title"><?=$tovar["name"]?></div>
+							<div class="last-wards-box-item-dscr"><?=$tovar["description"]?></div>
+							<div class="last-wards-box-item-type">
+											<div class="price">
+									<?=$tovar["show_price"]?>&nbsp;<?=$tovar["currency_symbol"]?>
+								</div>
+							</div>
+						</a>
+					</div>
+				</li>
+			<?php } ?>	
+				
+			</ul>
+		</div>
+		<div class="main-sep"></div>
+		<div class="news-box">
+			<div class="news-box-item">
+				<a href="#">
+					<div class="news-box-item-img">
+						<img src="/templates/images/t_img7.png" alt=""/>
+						<div class="news-box-item-img-text">
+							5 секретов удачного шопинга на распродажах
+						</div>
+					</div>
+					<div class="news-box-item-text">
+						Итак, приближается пора охоты. Сезонные распродажи в самом разгаре, а ближе к февралю придет время максимальных скидок.
+					</div>
+				</a>
+			</div>
+			<div class="news-box-item">
+				<a href="#">
+					<div class="news-box-item-img">
+						<img src="/templates/images/t_img7.png" alt=""/>
+						<div class="news-box-item-img-text">
+							Практикум: носим юбку-карандаш
+						</div>
+					</div>
+					<div class="news-box-item-text">
+						Итак, приближается пора охоты. Сезонные распродажи в самом разгаре, а ближе к февралю придет время максимальных скидок.
+					</div>
+				</a>
+			</div>
+			<div class="news-box-item last">
+				<a href="#">
+					<div class="news-box-item-img">
+						<img src="/templates/images/t_img7.png" alt=""/>
+						<div class="news-box-item-img-text">
+							Как одеться красиво в мороз? 5&nbsp;незаменимых правил
+						</div>
+					</div>
+					<div class="news-box-item-text">
+						Итак, приближается пора охоты. Сезонные распродажи в самом разгаре, а ближе к февралю придет время максимальных скидок.
+					</div>
+				</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="main-sep"></div>
+		<div class="about-box">
+			<div class="ctext">
+				<h2><?=$head["name"]?></h2>
+				<?=htmlspecialchars_decode($head["info"])?>
+			</div>
+		</div>
+	</div>

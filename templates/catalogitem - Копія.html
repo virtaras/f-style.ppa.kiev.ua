@@ -1,0 +1,81 @@
+<?php /* 20130815
+if($ind == 1) { $z = 0; } $z++; ?>
+<div class="catalog-box-item <?=$z==4 ? 'last' : ''?>">
+<?
+$img = getResizeImageById($r["imid"],"h",array("height"=>"158"),$r["imformat"]);
+?>
+	<a href="<?=$tovar_url?>">
+							<div class="catalog-box-item-img">
+								<span class="vfix"></span><img src="<?=$img?>" alt="<?=$r["name"]?>"/>
+							</div>
+							<div class="catalog-box-item-title">
+								<span class="vfix"></span><span><?=$r["name"]?></span> 
+							</div>
+							<div class="catalog-box-item-dscr">
+							<?=$tovar["description"]?>
+							</div>
+							<div class="catalog-box-item-price">
+								<?=$price?> <?=$currency_symbol?>
+							</div>
+						</a>
+						<div class="main-sep"></div>
+</div>
+<?php
+if($z == 4)
+{
+	$z = 0;
+	?>
+	<div class="clear"></div>
+	<?
+}
+20130815 */
+?>
+
+<?php
+if($ind == 1) { $z = 0; } $z++; ?>
+<div class="catalog-box-item">
+<?
+$img = getResizeImageById($r["imid"],"h",array("height"=>"232"),$r["imformat"]);
+$g_colors=get_goods_filters($r,'r1193');
+$g_sizes=get_goods_filters($r,'r1194');
+$goodsid=($r["goodsid"]!=0) ? $r["goodsid"] : $r["id"];
+?>
+	<a href="<?=$tovar_url?>">
+							<div class="catalog-box-item-img">
+								<span class="vfix"></span><img src="<?=$img?>" alt="<?=$r["name"]?>" style="vertical-align:top;"/>
+							</div>
+							<div class="catalog-box-item-title">
+								<span class="vfix"></span><span><?=$r["name"]?></span> 
+							</div>
+							<!--<div class="catalog-box-item-dscr">
+							<?=$tovar["description"]?>
+							</div>-->
+							<div class="catalog-box-item-dscr">
+								<?=$price?> <?=$currency_symbol?>
+							</div>
+						</a>
+						<div class="hide-menu">
+							<div class="filter-listed1 colorType">
+								<input type="hidden"/>
+								<?foreach($g_colors as $key=>$color){?>
+									<a style="background:<?=$color["code"]?>" data-filter-id="<?=$color["id"]?>" href="javascript:void(0);" onclick="javascript:updateGoodsFields('<?=$goodsid?>','r1193','<?=$color["id"]?>');"></a>
+								<?}?>
+							</div>
+							<div class="filter-listed1 size-master-box">
+								<input type="hidden"/>
+								<?foreach($g_sizes as $key=>$size){?>
+									<a data-filter-id="<?=$size["id"]?>" href="javascript:updateGoodsFields('<?=$goodsid?>','r1194','<?=$size["id"]?>')"><?=$size["name"]?></a>
+								<?}?>
+								<!--<a  class="noitem" href="#">XS</a><a data-filter-id="1" href="#">S</a><a data-filter-id="1" href="#">M</a><a data-filter-id="1" class="active" href="#">L</a><a class="noitem" href="#">XL</a>-->
+							</div>
+							<div class="hide-menu-item">
+								<a href="javascript:send_to_basket('<?=$r["id"]?>');"><span class="cart"></span>В корзину</a>
+								<a href="#stuff-box" class="fancybox1" onclick="javascript:showGoodsPreview('<?=$r["id"]?>');">Быстрый просмотр</a>
+								<a href="javascript:toIzbrannoe('<?=$r["id"]?>');">В избранное</a>
+							</div>
+						</div>
+	<input type="hidden" id="<?=$goodsid?>goodsid" value="<?=$goodsid?>" />
+	<input type="hidden" id="<?=$goodsid?>tovarid" value="<?=$r["id"]?>" />
+	<input type="hidden" id="<?=$goodsid?>r1193" value="<?=$r["r1193"]?>" />
+	<input type="hidden" id="<?=$goodsid?>r1194" value="<?=$r["r1194"]?>" />
+</div>

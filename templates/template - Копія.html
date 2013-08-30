@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<? content("meta")?>
+<script  type="text/javascript">
+	var baseurl="http://"+"<?=$_SERVER["HTTP_HOST"]?>"+"/";
+	var logged=Boolean('<?=checkLogged()?>');
+</script>	
+<!--<script  type="text/javascript" src="/js/jquery.js"></script>-->
+<script src="/templates/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script  type="text/javascript" src="/js/ui.jquery.js"></script>
+<script  type="text/javascript" src="/js/emarket.js"></script>
+<script  type="text/javascript" src="/virtaras/functions.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/templates/css/style.css" media="all" />
+
+<script src="/templates/js/jquery.mousewheel.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/js/smoothness/ui.jquery.css" media="all" />
+<script src="/templates/fancybox/jquery.fancybox.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/templates/fancybox/jquery.fancybox.css" media="all" />
+<script src="/templates/js/jquery.jnice.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/templates/css/jnice.css" media="all" />
+<script src="/templates/js/jquery.anythingslider.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/templates/css/anythingslider.css" media="all" />
+<script src="/templates/js/jquery.jcarousel.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/templates/css/skin.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/templates/css/skin1.css" media="all" />
+<script src="/templates/js/jquery.jscrollpane.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/templates/css/jquery.jscrollpane.css" media="all" />
+
+<script src="/templates/js/cloud-zoom.1.0.2.min.js" type="text/javascript"></script>
+
+<script src="/templates/js/scr.js" type="text/javascript"></script>
+<script  type="text/javascript">var discount= {money:0,percent:0}; var topID = 0; </script>
+	
+	<!--[if lt IE 9]>
+		<script src="js/pie.js" type="text/javascript"></script>
+	<![endif]-->
+<?
+		if($content_type == "new")
+		{
+			?>
+<script  type="text/javascript">
+			$().ready(function() {
+			$("#registration_info").dialog({
+			modal: true,
+			autoOpen: false,
+			minHeight:200,
+			width:400,
+			minWidth:400,
+			buttons: {
+				Ok: function() {
+					$(this).dialog('close');
+				}
+			}
+		});
+		});
+			</script>
+<?
+		}
+?>	
+</head>
+<body onload="show_cart()"  >
+	<div class="izbrannoe-box" style="display:inline-block;position:fixed;right:50px;top:150px;">
+		<?if(count($_COOKIE["izbrannoe"])){?><a href="/kabinet/izbrannoe/"><img src="/templates/images/izbrannoe.png" style="width:50px;height:150px;" /></a><?}?>
+	</div>
+	
+	<div class="header-line"></div>
+	<div class="header">
+		<div class="header-menu-top">
+			<div class="header-enter-menu">
+				<?if(!isset($_SESSION["login_user"])){?>
+					<div class="header-enter header-enter-butt" data-tab-index="1">
+						Вход
+					</div>
+					<div class="header-enter-box jNice" data-tab-index="1">
+						<iframe name="login" style="display:none;"></iframe>
+						<form name="login_in" id="login_in" method="POST" action="/inc/login.php?login" target="login">
+							<div class="header-enter-box-title">
+								<a class="lostpass" href="#">Забыли пароль?</a>
+								Авторизация
+							</div>
+							<div class="header-enter-box-input">
+								<input type="text" placeholder="E-mail" name="login_email" />
+							</div>
+							<div class="header-enter-box-input">
+								<input type="text" placeholder="Пароль"name="login_passw" />
+							</div>
+							<div class="header-enter-box-bottom">
+								<input type="submit" value="Войти" />
+								<div class="header-enter-box-bottom-left">
+									<label><input type="checkbox" />Запомнить меня</label>
+								</div>
+								
+							</div>
+						</form>
+					</div>
+				<?}else{?>
+					<div class="header-enter header-enter-butt" data-tab-index="1">
+						<a href="/logout.html">выйти</a>
+					</div>
+				<?}?>
+				<div class="header-reg header-enter-butt" data-tab-index="2">
+					<span>Нет учетной записи?</span> <span class="arrow"> </span>&nbsp;<span class="rose">Регистрация</span>
+					
+				</div>
+				<div class="header-enter-box jNice" data-tab-index="2">
+					<iframe name="registration" style="display:none;"></iframe>
+					<form name="reg_in" id="reg_in" method="POST" action="/inc/new.php?rg" target="registration">
+						<div class="header-enter-box-title">
+							Регистрация
+						</div>
+						<div class="header-enter-box-dscr">
+							Нажимая кнопку «Зарегистрироваться», Вы принимаете условия <a href="#">Пользовательского соглашения.</a>
+						</div>
+						<div class="header-enter-box-input">
+							<input type="text" placeholder="E-mail" name="email" />
+						</div>
+						<div class="header-enter-box-input">
+							<input type="text" placeholder="Пароль" name="passw" />
+						</div>
+						<div class="header-enter-box-bottom">
+							<input type="submit" value="Зарегистрироваться" />
+							<div class="header-enter-box-bottom-left">
+								<div class="soc-menu">
+									<a href="#"><img src="/templates/images/tw.png" alt=""/></a>
+									<a href="#"><img src="/templates/images/fb.png" alt=""/></a>
+									<a href="#"><img src="/templates/images/vk.png" alt=""/></a>
+								</div>
+							</div>
+							
+						</div>
+					</form>
+				</div>
+			</div>
+			<ul>
+				<?php 
+				print write_menu("<li><a %s %s href='%s'  %s >%s</a></li>",1);
+				?>
+				
+			</ul>
+		</div>
+		<div class="header-logo">
+			<a href="/"><img src="/templates/images/logo.png" alt=""/></a>
+		</div>
+		
+		<div class="header-search jNice">
+			<form method="post" id="search_form" name="search_form" action="/search.php">
+			  <input type="text" name="stext" id="stext" placeholder="Введите название товара или артикул..." />
+			  <input type="submit" value=""/>
+			</form>
+		</div>
+		<div class="header-contacts">
+			<div class="header-contacts-title">
+				<div class="phone-icon"></div>Контакты
+				<div class="whitesp"></div>
+			</div>
+			<div class="header-contacts-box">
+				<?=html("header-contact");?>
+				
+			</div>
+		</div>
+		<div class="header-cart" id="cart_panel">
+		</div>
+		<div class="header-menu">
+			<ul>
+				<?php
+				$arr = get_catalog_items_all(0); $ind = 0;
+				foreach($arr as $key=>$item) {
+				$ind++;
+				
+				?>
+			
+				<li <?php if($ind == 1) { ?> class="first" <?php } ?>>
+					<a href="/<?=$item["url"]?>/"><?=$item["name"]?></a>
+					<ul>
+						<?php
+						$i = 0;
+						$subarr = get_catalog_items_all($key);
+						
+						
+						
+						foreach($subarr as $k=>$subitem) { $i++;
+						
+						$c_array = array($k);
+						get_child_id($k,&$c_array);
+						
+						$items = get_catalog_items_all($k);
+						
+						if(count($items) == 0) {
+							//continue;
+							$new_array = array();
+						}else{
+							$new_array = array_chunk($items,ceil(count($items)/2));
+						}
+						
+						?>
+						<li>
+						<?php
+						if($i > 1) {
+						?>
+						<br />
+						<?php } ?>
+							<div class="coll">
+								<div class="title">
+									<?=$subitem["name"]?>
+								</div>
+								<div class="list">
+								<?php 
+								if(isset($new_array[0])){
+								foreach($new_array[0] as $current) { ?>
+									<a href="/<?=$current["url"]?>/"><?=$current["name"]?></a>
+									<?php } 
+								}?>
+								</div>
+							</div>
+							<div class="coll">
+								<div class="title">
+								</div>
+								<div class="list">
+									<?php
+									if(isset($new_array[1])){
+									foreach($new_array[1] as $current) { ?>
+									<a href="/<?=$current["url"]?>/"><?=$current["name"]?></a>
+									<?php }
+									} ?>
+								</div>
+							</div>
+							<div class="coll">
+							<?php
+							$t = get_products(implode(",",$c_array),true,1,$where = " AND goods.r1196 = 1 ");
+							if(isset($t[0])) { 
+							
+							$currentT = $t[0];
+							
+							?>
+								<div class="bestpropouse">
+									<a href="<?=$currentT["tovar_url"]?>">
+										<div class="bestpropouse-title">
+											Лучшее предложение
+										</div>
+										<div class="bestpropouse-brand">
+											<?=$currentT["name"]?>
+										</div>
+										<div class="bestpropouse-img">
+											<img src="/templates/images/t_img1.png" alt=""/>
+									`	</div>
+										<div class="bestpropouse-dscr">
+											<?=$currentT["description"]?>
+										</div>
+										<div class="bestpropouse-price">
+											<?=$currentT["show_price"]?>&nbsp;<?=$currentT["currency_symbol"]?>
+										</div>
+									</a>
+								</div>
+								<?php } ?>
+							</div>
+							<div class="clear"></div>
+							
+						</li>
+						<?php } ?>
+					</ul>
+				</li>
+				<?php } ?>
+				<li><a href="/brands/">бренды</a></li>
+				<li><a href="/novinki/">новинки</a></li>
+				<li><a href="#">акции</a></li>
+				<li><a href="#">sales</a></li>
+				<li class="last"><a href="/gid-po-stily">Гид по стилю</a></li>
+				<!--<li class="last"><a href="#">детская одежда</a></li>-->
+			</ul>
+		</div>
+	</div>
+
+	<div class="wrapper">
+	<?php
+	if(!_IS_INDEX)
+	{
+		?>
+		<div class="main">
+		<?include _DIR."templates/promo.php";?>
+		
+		<div class="bredcrumbs">
+			<div class="text">
+				<? /*В интернет магазине F STYLE представлено 4534 товара в категории одежда от 121 бренда. */ ?>
+			</div>
+			<?=get_path()?>		
+		</div>
+		<div class="main-sep sm bc"></div> 
+		<?
+	}
+	?>
+	<? content(); ?>
+<?php
+	if(!_IS_INDEX)
+	{
+		?>
+		</div>
+		<?
+	}
+	?>
+	</div>
+<div class="footer_w">
+		<div class="footer">
+			<div class="footer-slogan">
+				Интернет магазин одежды - <span>F style.</span> Одежда – лучший способ заявить о себе!
+			</div>
+			<div class="footer-top-menu">
+				<ul>
+					<? print write_menu("<li><a %s %s href='%s'  %s >%s</a></li>",4); ?>
+				</ul>
+			</div>
+			<div class="footer-logo">
+				<a href="/"><img src="/templates/images/flogo.png" alt=""/></a>
+			</div>
+			<div class="footer-soc-menu">
+				<?=html("footer-soc-menu")?>
+			</div>
+			<div class="footer-phone">
+				<?=html("footer-phone")?>
+			</div>
+			<div class="pay-info">
+				<img src="/templates/images/visa.png" alt=""/>
+				<img src="/templates/images/mastercard.png" alt=""/>
+				<img src="/templates/images/webmoney.png" alt=""/>
+			</div>
+			<div class="footer-links">
+				<div class="footer-links-coll">
+					<a href="#">Новинки</a><br/>
+					<a href="#">Акции</a><br/>
+					<a href="#">SALE</a><br/>
+					<a href="#">Одежда</a><br/>
+					<a href="#">Обувь</a><br/>
+					<a href="#">Аксессуары</a><br/>
+					<a href="#">Бренды</a><br/>
+					<a href="#">Гид по стилю</a><br/>
+					<a href="#">Оплата и доставка</a><br/>
+					<a href="#">Поиск</a><br/>
+				</div>
+				<div class="footer-links-coll">
+					<a href="#">Блог</a><br/>
+					<a href="#">Статьи</a><br/>
+					<a href="#">Каталог</a><br/>
+					<a href="#">Доставка</a><br/>
+					<a href="#">Информация покупателя</a><br/>
+					<a href="#">Гарантии</a><br/>
+					<a href="#">О магазине</a><br/>
+					<a href="#">Бонусная система</a><br/>
+					<a href="#">Подарочные карты</a><br/>
+					<a href="#">Возврат товаров</a><br/>
+				</div>
+				<div class="footer-links-coll">
+					<a href="#">Блог</a><br/>
+					<a href="#">Статьи</a><br/>
+					<a href="#">Каталог</a><br/>
+					<a href="#">Доставка</a><br/>
+					<a href="#">Информация покупателя</a><br/>
+					<a href="#">Гарантии</a><br/>
+					<a href="#">О магазине</a><br/>
+					<a href="#">Бонусная система</a><br/>
+					<a href="#">Подарочные карты</a><br/>
+					<a href="#">Возврат товаров</a><br/>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="popups-box">
+		<div id="bonus-card" class="bonus-card jNice">
+			<div class="bonus-card-title">
+				Использовать бонусы
+			</div>
+			<div class="bonus-card-available">
+				Всего <span>доступно</span> бонусных баллов:  <div class="bonus-card-available-number">300</div>
+			</div>
+			<div class="bonus-card-use">
+				<span>Использовать</span> бонусных баллов:   <div class="bonus-card-use-input"><input type="text"/><span class="txt">баллов </span></div>
+			</div>
+			<div class="bonus-card-sbmt">
+				<input class="big" type="submit" value="Применить"/>
+			</div>
+		</div>
+		<div id="stuff-box" class="stuff-box ppsb">
+		</div>
+	</div>
+	
+	<div style="display:none;" id="to_basket" title="Ваш заказ:">
+		Ваш заказ:
+	</div>
+	<!--<div id="test">
+		Товар добавлен в корзину !
+	</div>-->
+</body>
+</html>
+<script>
+function afterShowGoodsPreview(res){
+	//alert(res);
+	//$.when($("#stuff-box").html(res)).then(handleLoad());
+	$("#stuff-box").html(res);
+}
+function showGoodsPreview(goodsid){
+	$.post(baseurl+"templates/ajax/ajax.php",{action:"showGoodsPreview",goodsid:goodsid},afterShowGoodsPreview);
+}
+
+function afterAddIzbrannoe(res){
+	showIzbrannoe();
+}
+function afterShowIzbrannoe(res){alert(res);}
+
+function showIzbrannoe(){
+	$.post(baseurl+"templates/ajax/ajax.php",{action:"showIzbrannoe"},afterShowIzbrannoe);
+}
+function addIzbrannoe(goodsid){
+	$.post(baseurl+"templates/ajax/ajax.php",{action:"addIzbrannoe",goodsid:goodsid},afterAddIzbrannoe);
+}
+function toIzbrannoe(goodsid){
+	addIzbrannoe(goodsid);
+}
+function afterUpdateGoodsFields(res,goodsid,tovarid){
+	//alert(goodsid);
+	$.when( $("#"+tovarid+'-holder').html(res) ).then(handleLoad());
+}
+function updateGoodsFields(goodsid,tovarid,field,value){
+	$("#"+goodsid+'-preloader').show();
+	$("#"+goodsid+field).val(value);
+	if(field=='r1193') $("#"+goodsid+"r1194").val(-1);
+	var filters=["r1193="+$("#"+goodsid+"r1193").val(),"r1194="+$("#"+goodsid+"r1194").val()];
+	$.post("/templates/ajax/ajax.php",{action:"getGoodsView",goodsid:goodsid,tovarid:tovarid,filters:filters},function(res){afterUpdateGoodsFields(res,goodsid,tovarid);});
+}
+
+function afterSetNewPreviewId(res,maingoodsid,tovarid){
+	alert(res);
+	$("preview-buybtn-"+tovarid).html(res);
+}
+function setNewPreviewId(maingoodsid,tovarid,field,value){
+	$("#preview-"+field+"-"+maingoodsid).val(value);
+	if(field=='r1193')
+		$("#preview-r1194-"+maingoodsid).val(-1);
+	var filters=["r1193="+$("#preview-r1193-"+maingoodsid).val(),"r1194="+$("#preview-r1194-"+maingoodsid).val()];
+	//alert(JSON.stringify(filters));
+	$.post("/templates/ajax/ajax.php",{action:"getNewPreviewId",maingoodsid:maingoodsid,tovarid:tovarid,filters:filters},function(res){afterSetNewPreviewId(res,maingoodsid,tovarid);});
+}
+</script>

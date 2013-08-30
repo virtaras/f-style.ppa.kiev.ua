@@ -1,0 +1,1 @@
+<? $currency_array = array();$currency_array[1]["course"] = '1.00';$currency_array[1]["shortname"] = 'грн.';$currency_array[1]["name"] = 'Гривна';$currency_array[3]["course"] = '8.00';$currency_array[3]["shortname"] = '$';$currency_array[3]["name"] = 'USD';$currency_array[7]["course"] = '10.00';$currency_array[7]["shortname"] = 'EUR';$currency_array[7]["name"] = 'EURO'; ?>

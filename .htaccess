@@ -1,0 +1,79 @@
+AddDefaultCharset utf-8
+RewriteEngine On
+DirectoryIndex index.php
+
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} -f [NC,OR]
+RewriteCond %{REQUEST_FILENAME} -d [NC]
+RewriteRule .* - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !.html$
+RewriteCond %{REQUEST_URI} !.php$
+RewriteCond %{REQUEST_URI} !.xml$
+RewriteCond %{REQUEST_URI} !.htm$
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteRule ^(.*)$ http://f-style.ppa.kiev.ua/$1/ [L,R=301]
+
+RewriteRule ^image/frame/([A-Za-z0-9-_]+)/([0-9]*)/([0-9]*)/([0-9]*).jpg/?$ thumb_frame.php?table=$1&fwidth=$2&fheight=$3&id=$4 [L]
+
+RewriteRule ^confirm-email/([^/\.]+)/?$ index.php?content=confirm-email&hash=$1 [L]
+
+RewriteRule ^questions.html?$ index.php?content=allquestion [L]
+RewriteRule ^logout.html?$ logout.php [L]
+RewriteRule ^sitemap.xml?$ sitemap.php [L]
+RewriteRule ^compare/([0-9]*)?$ index.php?content=compare&id=$1 [L]
+RewriteRule ^compare/([0-9]*)/diff?$ index.php?content=compare&id=$1&diff [L]
+RewriteRule ^new?$ index.php?content=new [L]
+RewriteRule ^login.html?$ index.php?content=login [L]
+RewriteRule ^account.html?$ index.php?content=account [L]
+RewriteRule ^account_registration.html?$ index.php?content=account_registration [L]
+RewriteRule ^account_info.html?$ index.php?content=account_info [L]
+RewriteRule ^account_history.html?$ index.php?content=account_history [L]
+RewriteRule ^viewhistory.html?$ index.php?content=viewhistory [L]
+RewriteRule ^viewhistory/([0-9]*).html?$ index.php?content=viewhistory&page=$1 [L]
+
+
+RewriteRule ^basket/add/([0-9]*)/?$ basket.php?add=$1 [L]
+RewriteRule ^basket/add/([0-9]*)/([0-9]*)/?$ basket.php?add=$1&q=$2 [L]
+RewriteCond %{QUERY_STRING} ^color=([0-9]+)&size=([^/\.]*)$
+RewriteRule ^basket/add/([0-9]*)/([0-9]*)/([^/\.]+)?$ basket.php?add=$1&q=$2&params=%1,%2 [L]
+RewriteRule ^basket/recalculate/?$ basket.php?recalculate [L]
+RewriteRule ^basket/create/?$ basket.php?create [L]
+RewriteRule ^basket/remove/([0-9]*)/?$ basket.php?rm=$1 [L]
+RewriteRule ^basket.html?$ index.php?content=basket [L]
+RewriteRule ^cart/?$ index.php?content=basket [L]
+
+RewriteRule ^tag/([^/\.]+)?$ index.php?content=tag&text=$1 [L]
+RewriteRule ^tag/([^/\.]+)/([0-9]*)?$ index.php?content=tag&text=$1&page=$2 [L]
+
+RewriteCond %{QUERY_STRING} ^id=([0-9,]+)([^/\.]*)$
+RewriteRule ^search.html?([^/\.]+)$ index.php?content=search&url=%2&id=%1 [L]
+
+
+RewriteRule ^search/([^/\.]+).html?$ index.php?content=search&stext=$1 [L]
+RewriteRule ^search/([^/\.]+)/([0-9]*).html?$ index.php?content=search&stext=$1&page=$2 [L]
+
+
+RewriteRule ^asearch/([^/\.]+).html?$ index.php?content=asearch&stext=$1 [L]
+RewriteRule ^asearch/([^/\.]+)/([0-9]*).html?$ index.php?content=asearch&stext=$1&page=$2 [L]
+
+
+
+RewriteRule ^([^/\.]+)-p([0-9]+)/$ index.php?content=tovar&id=$2 [L,QSA]
+
+RewriteRule ^([^/\.]+)-c([0-9]+)/([0-9]+)/?$ index.php?content=catalog&page=$3&id=$2 [L,QSA]
+RewriteRule ^([^/\.]+)-c([0-9]+)/$ index.php?content=catalog&id=$2 [L,QSA]
+RewriteRule ^([^/\.]+)-c([0-9]+)/brands/$ index.php?url=brands&urlname=brands&catalog=$2 [L,QSA]
+
+
+RewriteRule ^([^/\.]+)-m([0-9]+)/$ index.php?content=brand&id=$2 [L,QSA]
+RewriteRule ^([^/\.]*)/([0-9]+)/$ index.php?url=$1&urlname=$1&page=$2 [L,QSA]
+RewriteRule ^([^/\.]*)/([^/\.]*)/$ index.php?url=$1&urlname=$1/$2 [L,QSA]
+RewriteRule ^([^/\.]*)/([^/\.]*)/([^/\.]*)/$ index.php?url=$1&urlname=$1/$2/$3 [L,QSA]
+RewriteRule ^([^/\.]*)/$ index.php?url=$1&urlname=$1 [L,QSA]

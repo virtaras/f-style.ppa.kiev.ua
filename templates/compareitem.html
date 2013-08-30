@@ -1,0 +1,13 @@
+<? if($ind == 1) { ?>
+	<div class="filtr">
+		<div class="filtr-title">Сравнить</div>
+			<div class="border-1">
+				<div class="border-2">
+<? }  ?>
+<div  class="compare_item"><a href="javascript:void(0);" style="color:#1FB5F4; font-size:10px; text-decoration:none; font-weight:bold; font-family:verdana; padding:0px 0px 0px 0px;" onclick="$('#compare_div').load('/ajax.php',{action:'compare',tovarid:<?=$r["id"]?>,parent:<?=$sparent?>,rm:1},after_compare);" >X</a>&nbsp;<a href="<?=$tovar_url?>"><?=$r["name"]?></a></div>
+<? if($ind == $itemcount) { ?>
+	<br />
+	<strong><a href="/compare/<?=$parent?>">Перейти к сравнению</a></strong>
+
+	</div></div><img style="display:block;" src="<?=_TEMPL?>images/filtr-bottom.png"></div><br />
+<? }  ?>

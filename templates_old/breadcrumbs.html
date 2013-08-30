@@ -1,0 +1,53 @@
+<?php
+	if(!empty($is_catalog)) { 
+	$path = "";
+	$path = "<li><a  href='/'>Главная</a></li><li class='sep'></li>";
+	//<li><a href="#">Главная</a></li><li>Каталог</li></ul>
+	$ind = 0;
+	foreach($arr as $current)
+	{
+		$ind++;
+		$url = $catalog_array[$current]["url"];
+		if($_GET["id"] == $current)
+		{
+			$path .= "<li lass='active'><a href='#' class='current'>".$catalog_array[$current]["name"]."</a></li>";
+		}
+		else
+		{
+			$path .= "<li><a   href='"._SITE.$url."/'>".$catalog_array[$current]["name"]."</a></li><li class='sep'></li>";
+		}
+	}
+	if(_CONTENT_TYPE == "tovar")
+	{
+		global $tovar;
+		$path .= "<li><a href='/".$tovar["brandurl"]."-m" . $tovar["brand"] . "/'>".$tovar["brandname"]."</a></li><li class='sep'></li>";
+		$path .= "<li lass='active'><a href='#' class='current'>".$tovar["name"]."</a></li>";
+	}
+	echo "<ul>" . $path . "</ul>"; }
+	else
+	{
+		switch(_CONTENT_TYPE)
+		{
+			case "content":
+				$path = "<li><a href='"._SITE."'>Главная</a></li><li class='sep'></li>";
+				$ind = 0;
+				foreach($path_arr as $key)
+				{
+				  $ind++;
+				  $urlname = execute_scalar("SELECT url FROM content WHERE id = $key");
+				  $path .= "<li><a href='"._SITE."".(  $urlname != "" ?   $urlname : $key )."/'>".execute_scalar(is_numeric($key) ? "SELECT name FROM content WHERE id = '$key'" :"SELECT name FROM content WHERE urlname = '$key'" )."</a></li>".($ind < count($path_arr) ? "<li class='sep'></li>" : "")."";
+				}
+				echo "<ul>" . $path . "</ul>"; 
+				break;
+			case "basket":
+				$path = "<li><a href='"._SITE."'>Главная</a></li><li class='sep'></li>";
+				$path .= "<li class='active'><a href='#' class='current'>Ваш заказ</a></li>";
+				echo "<ul>" . $path . "</ul>"; 
+				break;
+			case "brand":
+			?>
+			  <ul><li><a  href="<?=_SITE?>">Главная</a></li><li class='sep'></li><li><a><?=$brandrow["name"]?></a></li></ul><?
+				break;
+		}
+	}
+?>

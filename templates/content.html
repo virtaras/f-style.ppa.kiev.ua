@@ -1,0 +1,13 @@
+<?php
+if($head["hide_content"] == "0")
+{
+	echo htmlspecialchars_decode( $head["info"],ENT_QUOTES);
+}
+if( $head["formid"] > 0 )
+{
+	content("form", $head["formid"]);
+}
+if($head["path"] != "" && file_exists(_DIR.$head["path"]))
+{
+	include(_DIR.$head["path"]);
+}

@@ -1,0 +1,1 @@
+<? $cross_course = array();$cross_course[1][1] = '1';$cross_course[1][3] = '0.125';$cross_course[1][7] = '0.1';$cross_course[3][1] = '8';$cross_course[3][3] = '1';$cross_course[3][7] = '0.8';$cross_course[7][1] = '10';$cross_course[7][3] = '1.25';$cross_course[7][7] = '1'; ?>

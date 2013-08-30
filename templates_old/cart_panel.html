@@ -1,0 +1,37 @@
+<div class="header-cart-title" >
+<div class="cart-icon"></div><?=$b->q?> &nbsp;товар<?=get_correct_str($b->q, "", "а", "ов")?>:  <span><?=$b->sum[_DISPLAY_CURRENCY]?>&nbsp;<?=$currency_array[_DISPLAY_CURRENCY]["shortname"]?></span><div class="whitesp"></div>
+</div>
+<div class="header-cart-box">
+<?php
+$basket_array = isset($_SESSION["basket"]) ? unserialize($_SESSION["basket"]) :   array();
+$arr = get_products(0,FALSE,100000000," AND goods.id IN (".implode(",",array_keys($basket_array)).")");
+
+foreach($arr as $current) {
+
+	$img =  getResizeImageById($current["imid"],"h",array("height"=>57),$current["imformat"]);
+?>				
+				
+				
+				<div class="header-cart-box-item">
+					<div class="img">
+						<img src="<?=$img?>" alt=""/>
+					</div>
+					<div class="dscr">
+						<div class="dscr-title">
+							<?=$current["name"]?>
+						</div>
+						<?=$current["description"]?> 
+					</div>
+					<div class="price">
+							<?=$current["show_price"]*$basket_array[$current["id"]]->q?>&nbsp;<?=$current["currency_symbol"]?>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+				<?php } ?>
+				
+				<div class="header-cart-menu">
+					<a href="#" class="dell">Отменить заказ</a>
+					<a href="/cart/" class="gocart">Продолжить </a>
+				</div>
+			</div>

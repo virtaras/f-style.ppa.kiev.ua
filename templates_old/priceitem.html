@@ -1,0 +1,46 @@
+<?
+$img = getResizeImageById($r["imid"],"h",array("height"=>"147"),$r["imformat"]);
+?>
+
+	<div id="detailWhiskey">
+            	<div class="photos">
+                	<a href="<?=$tovar_url?>"><img src="<?=$img?>" alt="<?=$r["name"]?>"  /></a>
+                </div>
+                
+                <div class="detail">
+                	<a href="<?=$tovar_url?>"><?=$r["name"]?></a>
+                    
+                    <table  align='center' width='85px'>
+                      <tr height='12' bgcolor='#ffffff' valign=top align=center>
+                        <td class="current"> </td>
+                        <td class="current"> </td>
+                        <td class="current"> </td>
+                        <td> </td>
+                        <td> </td>
+                      </tr>
+              		</table>
+                    
+          			<p>которое в эпоху своего расцвета занимало северную часть Корейского полуострова, а также часть  
+                    территории современного северо-восточного Китая и нынешнего российского Приморья. В истории страны  
+                    чередовались периоды демократического и авторитарного управления.
+               		</p>
+                    
+                    <div class="basket">
+                     	<p>2050 <?=$currency_symbol?></p>
+                        <input class="numbers" type="text" id="q<?=$r["id"]?>" name="name" style="color: #999;
+                            "value="0" onfocus="if (this.value == '0') {this.value = ''; this.style.color = '#000';}"
+                             onblur="if (this.value == '') {this.value = '0'; this.style.color = '#777';}" />
+                        
+                          <select name="menu" size="1">
+                            <option selected="selected" value="1">бутылка</option>
+                            <option value="2">банка</option>
+                            <option value="3">бидон</option>
+                            <option value="4">бочка</option>
+                            <option value="5">цистерна</option>
+                            <option value="6">танкер</option>
+                          </select>
+
+                       <a href="javascript:void(0);" onclick="send_to_cart(<?=$r["id"]?>,<?=$r["id"]?>)">в корзину</a>
+                    </div>
+                </div>  
+            </div>

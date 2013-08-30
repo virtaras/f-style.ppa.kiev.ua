@@ -1,0 +1,8 @@
+AddDefaultCharset utf-8
+AuthType	Basic
+AuthUserFile	"/var/www/ppaM5w/.htpasswd"
+AuthName	"ppa.kiev.ua"
+Order		Allow,Deny
+Allow from	all
+Require user	admin
+AddDefaultCharset UTF-8

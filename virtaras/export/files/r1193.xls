@@ -1,0 +1,137 @@
+	<table border="1">
+	<tr>		<td>
+				id			</td>
+			<td>
+				name			</td>
+			<td>
+				showorder			</td>
+			<td>
+				code			</td>
+			<td>
+				goods_type			</td>
+		
+	</tr>
+
+	<tr>			<td>
+			&quot;1&quot;				</td>
+					<td>
+			&quot;&#1057;&#1080;&#1085;&#1080;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;blue&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;2&quot;				</td>
+					<td>
+			&quot;&#1063;&#1077;&#1088;&#1085;&#1099;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;black&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;3&quot;				</td>
+					<td>
+			&quot;&#1050;&#1086;&#1088;&#1080;&#1095;&#1085;&#1077;&#1074;&#1099;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;brown&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;4&quot;				</td>
+					<td>
+			&quot;&#1050;&#1088;&#1072;&#1089;&#1085;&#1099;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;red&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;5&quot;				</td>
+					<td>
+			&quot;&#1047;&#1077;&#1083;&#1077;&#1085;&#1099;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;green&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;6&quot;				</td>
+					<td>
+			&quot;&#1041;&#1080;&#1088;&#1102;&#1079;&#1072;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;byryuza&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;7&quot;				</td>
+					<td>
+			&quot;&#1041;&#1077;&#1083;&#1099;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;bel&#1099;y&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;8&quot;				</td>
+					<td>
+			&quot;&#1058;&#1077;&#1084;&#1085;&#1086;-&#1089;&#1080;&#1085;&#1080;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;temno-synyy&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;9&quot;				</td>
+					<td>
+			&quot;&#1063;&#1072;&#1081;&#1085;&#1072;&#1103; &#1088;&#1086;&#1079;&#1072;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;chaynaya_roza&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;10&quot;				</td>
+					<td>
+			&quot;&#1056;&#1072;&#1079;&#1085;&#1086;&#1094;&#1074;&#1077;&#1090;&#1085;&#1086;&#1077;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;raznotsvetnoe&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;11&quot;				</td>
+					<td>
+			&quot;&#1054;&#1088;&#1072;&#1085;&#1078;&#1077;&#1074;&#1099;&#1081;&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;oranzhev&#1099;y&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+			</table>
+	

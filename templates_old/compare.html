@@ -1,0 +1,246 @@
+<div class="blok-slider">
+<?
+	include("left-filters.html");
+?>
+<div class="block-right">
+			
+			<div class="content-title">
+				<?=get_path()?>
+			</div>
+			
+			<div class="tovar-name">
+				Результат сравнения
+			</div>
+			
+			
+<div style="overflow:auto;width:740px;"><br />	<br />
+	&nbsp;&nbsp;&nbsp;
+	
+	<strong>
+				
+				<a <?=(!isset($_GET["diff"]) ? "style='color:red;'" : "")?> href="/compare/<?=$_GET["id"]?>">Все характеристики</a>&nbsp;|&nbsp;
+				<a <?=(isset($_GET["diff"]) ? "style='color:red;'" : "")?> href="/compare/<?=$_GET["id"]?>/diff">Только различающиеся</a>
+
+				</strong>
+			<br />	<br /><br />	<br />	
+	
+<table cellpadding="0" cellspacing="0" border="0" class="compare_table">
+		<tr class="compare2">
+		<td ></td>
+			<?
+			foreach($garray as $current)
+			{
+					$tovar_url = get_product_url($current);
+				?>
+				<td class="compare_td_img" style="text-align:center;vertical-align:top;">
+				<div class="compare_td_name" style="font-weight:bold;">
+									<a href="<?=$tovar_url?>" ><?=$current["name"]?></a></div>	
+				<?
+			}
+			?>	
+		</tr>
+		<tr>
+			<td >
+				
+			</td>
+			<?
+			foreach($garray as $current)
+			{
+				$tovar_url = get_product_url($current);
+				?>
+				<td class="compare_td_img" style="text-align:center;vertical-align:top;">
+					
+				<a href="<?=$tovar_url?>"  ><img id="timage<?=$current["id"]?>" alt="" src="<?=get_main_image($current["id"],120,3)?>" /></a></td> 
+				<?
+			}
+			?>
+		</tr>
+		<tr class="compare1">
+			<td class="compare_td_title"><strong>Цена:</strong></td>
+			<?
+			foreach($garray as $r)
+			{
+				?>
+				<td class="compare_td_params" style="text-align:center;">
+				
+
+						<? if($r["price_action"] > 0) { ?>
+						<label class="old_price" ><?=get_price($r["price"],_DISPLAY_CURRENCY,$r["id"],$r["currency"])?></label>&nbsp;&nbsp;<label class="action_price"><?=get_price($r["price_action"],_DISPLAY_CURRENCY,$r["id"],$r["currency"])?> <?=$currency_array[_DISPLAY_CURRENCY]["shortname"]?></label>&nbsp;/&nbsp;<label class="action_price"><?=get_price($r["price_action"],3,$r["id"],$r["currency"])?> <?=$currency_array[3]["shortname"]?></label>
+						<? } else { ?>
+						<label class="regular_price"><?=get_price($r["price"],_DISPLAY_CURRENCY,$r["id"],$r["currency"])?> <?=$currency_array[_DISPLAY_CURRENCY]["shortname"]?></label>&nbsp;/&nbsp;<label class="regular_price"><?=get_price($r["price"],3,$r["id"],$r["currency"])?> <?=$currency_array[3]["shortname"]?></label>
+						<? } ?>
+
+				</td> 
+				<?
+			}
+			?>
+		</tr>
+	<?
+	if($_GET["id"] == "0")
+	{
+		$fields_sql = mysql_query("SELECT f.name,f.table_name,f.field_type,f.rname,f.title FROM `fields` as f
+    LEFT JOIN categoryfields cf ON   cf.fieldid = f.id
+    WHERE f.id IS NOT NULL AND ((cf.inlist = 1 AND cf.categoryid IN (".implode(",",$parents).")) OR f.isgeneral = 1)  AND f.field_type != 5
+	GROUP BY f.name,f.table_name,f.field_type,f.rname,f.title
+    ORDER BY cf.showorder");
+	}
+	else
+	{
+		$fields_sql = mysql_query("SELECT f.name,f.table_name,f.field_type,f.rname,f.title FROM `fields` as f
+    LEFT JOIN categoryfields cf ON   cf.fieldid = f.id
+    WHERE f.id IS NOT NULL AND ((cf.inlist = 1 AND cf.categoryid = '$_GET[id]') OR f.isgeneral = 1)  
+    ORDER BY cf.showorder");
+	
+	}
+	if(mysql_num_rows($fields_sql) == 0)
+	{
+		
+		
+		?>
+			<tr>
+				<td class="compare_td_title"><strong>Описание:</strong></td>
+				<?
+				foreach($garray as $current)
+				{
+					?>
+					<td><? if($current["description"] != "") { ?>
+		<?=htmlspecialchars_decode($current["description"])?>
+		<? } else { ?>
+		<?=htmlspecialchars_decode($current["full_description"])?>
+		<? } ?></td>
+					<?
+				}
+				?>
+			</tr>
+		<?
+	}
+	$ind = 2;
+	while($field = mysql_fetch_assoc($fields_sql))
+	{
+	
+		
+		if(isset($_GET["diff"]))
+		{
+		
+			$diff_array = array();
+			foreach($garray as $current)
+			{
+				switch($field["field_type"])
+				{
+					case "5":
+						$fvarray = array();
+						$fsql = mysql_query("SELECT f.name FROM  s" . $field["table_name"] . " sr
+						INNER JOIN " . $field["table_name"] . " f ON f.id = sr.valueid
+						WHERE sr.goodsid = '$current[id]'");
+						while($f = mysql_fetch_assoc($fsql))
+						{
+							array_push($fvarray,$f["name"]);
+						}
+						$strv =  implode(", ",$fvarray);
+						if(!in_array($strv,$diff_array))
+						{
+							$diff_array[] = $strv;
+						}
+						break;
+					default:
+						if(!in_array($current[$field["rname"]],$diff_array))
+						{
+							$diff_array[] = $current[$field["rname"]];
+						}
+						break;	
+					
+				}
+				
+				
+				
+			}
+			if(count($diff_array) == 1)
+			{
+				continue;
+			}
+			
+		
+		}
+		
+		?>
+		<tr class="compare<?=$ind?>">
+			<td class="compare_td_title"><strong><?=($field["title"] != "" ? $field["title"] : $field["name"])?>:</strong></td>
+			<?
+			
+			
+			
+			foreach($garray as $current)
+			{
+				?>
+				<td class="compare_td_params" style="font-weight:normal;text-align:center;">
+				<?
+		switch($field["field_type"])
+			{
+				case "1":
+					echo $current[$field["rname"]]."&nbsp;";
+					break;
+				case "2":
+					$fsql = mysql_query("SELECT name FROM  $field[table_name] WHERE id = '".$current[$field["rname"]]."'");
+					$f = mysql_fetch_array($fsql);
+					echo $f[0]."&nbsp;";
+					break;
+				case "3":
+					echo $current[$field["rname"]]."&nbsp;";
+					break;
+				case "4":
+					if($r[$field["rname"]] == "1")
+					{
+						echo "Есть";
+					}
+					else
+					{
+						echo "Нет";
+					}
+					break;	
+				case "5":
+					$fvarray = array();
+					$fsql = mysql_query("SELECT f.name FROM  s" . $field["table_name"] . " sr
+					INNER JOIN " . $field["table_name"] . " f ON f.id = sr.valueid
+					WHERE sr.goodsid = '$current[id]'");
+					while($f = mysql_fetch_assoc($fsql))
+					{
+						array_push($fvarray,$f["name"]);
+					}
+					print implode(", ",$fvarray);
+					if(count($fvarray) == 0)
+					{
+						print "-";
+					}
+					break;	
+			} ?></td><?
+			}
+			?>
+		</tr>
+		<?
+		if($ind == 2)
+		{
+			$ind = 1;
+		}
+		else
+		{
+			$ind = 2; 
+		}
+	}
+		?>
+		<tr>
+			<td></td>
+			<?
+			foreach($garray as $r)
+			{
+				?>
+				<td >
+				<div style="text-align:center;">
+								<a href="javascript:void(0);" onclick="send_to_basket(<?=$r["id"]?>,<?=$r["id"]?>)"><img src="/templates/images/button-buy.png"></a>
+								</div>
+				</td> 
+				<?
+			}
+			?>
+		</tr>
+		</table>
+		</div></div></div>

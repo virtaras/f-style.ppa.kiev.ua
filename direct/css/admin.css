@@ -1,0 +1,227 @@
+body{margin-top:0px;padding-top:0px;}
+body,input,select,td,div,span,textarea ,fieldset,legend ,a{ font-family: Arial, sans-serif;font-size:11px;}
+fieldset {border:1px solid #C7D9E2;padding-left:5px;padding-bottom:5px;}
+td {padding-left:4px;}
+img {border:0px;cursor:pointer;}
+
+legend{color:#708090}
+form{margin-top:0px;padding-top:0px;}
+.ct td{vertical-align:middle;}
+.ct{margin-top:5px;}
+.edit_table{margin-top:30px;}
+.error{color:red;}
+div.filter{padding:10px 10px 10px 10px;position:absolute;background-color:white;border:1px outset silver;display:none;}
+table.filter{}
+.ftd{vertical-align:top;color:#739FB9;}
+.section_name{padding-bottom:5px;}
+.content_td{vertical-align:top;}
+.hdiv{padding-bottom:5px;white-space:nowrap;}
+.tb{font-weight:bold;} /*toolbar*/
+a.tblink:link {color:#728A9E;}
+a.tblink:hover {color:#728A9E;}
+a.tblink:visited{color:#728A9E;}
+td.ctd{padding-left:0px;vertical-align:top;padding-top:0px;margin-top:0px;}/* table content td*/
+td.ltd{padding-left:0px;vertical-align:top;padding-top:0px;margin-top:0px;text-align:left;width:175px;}
+td.rtd{} 
+
+/* table content td*/
+
+
+
+
+/*table*/
+.t {font-family:arial;background-color: #CDCDCD;margin:10px 0pt 15px;font-size: 12pt;width: 100%;text-align: left;}
+.t th{background-color: #e6EEEE;border: 1px solid #FFF;font-size: 11px;padding: 2px;font-weight:bold;color: #3D3D3D;}
+.t td{color: #3D3D3D;padding: 2px;vertical-align: top;}
+.tr{background-color:#FFFFFF;}
+.atr{background-color:#F0F0F6;}
+.ctr{background-color:#BAFFD2;}
+/*table*/
+
+/*controls*/
+input,select,textarea {border:1px solid #CDCDCD;}
+.cb{border:0px;}
+.rb {border:0px;}
+.input_box{width:200px;color: #3D3D3D;font-family:arial,sans-serif;}
+.select_box{width:200px;color: #3D3D3D;font-family:arial,sans-serif;}
+.text_area{width:200px;color: #3D3D3D;font-family:arial,sans-serif;}
+.buttons{cursor:pointer;background-color :#F0F0F6;color:#3D3D3D;border:1px solid silver; }
+.buttons:hover {background-color:#e6EEEE;}
+/*controls*/
+
+/*decoration*/
+.title{color: #3D3D3D;font-weight:bold;}
+.tool_bar{padding-top:20px;width:100%;border-bottom:1px solid #e6EEEE;padding-bottom:3px;}
+.tbr{text-align:right;padding-right:7px;font-weight:bold;font-weight:bold;color:#3D3D3D;}
+.tt{width:100%;border-bottom:1px solid silver;font-weight:bolder;color:#3D3D3D;font-size:11px;padding-top:7px;}
+.mainmenu{width:1110px;}
+.info{width:100%;text-align:right;font-size:9px;}
+#dlonglist {border:1px outset silver;z-index:10;position:absolute;display:none;background-color:white;}
+#dlonglist input{margin-left:15px;}
+.line {height:2px;border-top:1px solid #E6EEEE;}
+/*decoration*/
+/*tabs*/
+.tabs{border-bottom:1px solid #e6EEEE;}
+.tabOn{cursor:pointer;border-left:1px solid white;text-align:center;background-color :#F0F0F6;}
+.tabOff{cursor:pointer;border-left:1px solid white;text-align:center; background:#e6EEEE;}
+
+/*tabs*/
+/*paging*/
+.paging{width:100%;text-align:right;}
+.pl{color:#778181}
+.cpl{color:#778181}
+/*paging*/
+
+a:link {font-size:11px;text-decoration: underline;color:#778181;}
+a:visited{font-size:11px;text-decoration: underline;color:#778181;}
+a:hover {font-size:11px;text-decoration:none;color:#778181;}
+
+#fields_list{display:none;border:1px outset silver;z-index:10;position:absolute;background-color:white;padding:15px;}
+#fields_list div{margin-top:7px;}
+/* Root = Horizontal, Secondary = Vertical */
+ul#navmenu-h {
+  margin: 10px 0 10px 0;
+  border: 0 none;
+  padding: 0;
+  width: 100%; /*For KHTML*/
+  list-style: none;
+  height: 24px;
+  min-width:1000px;
+}
+
+ul#navmenu-h li {
+  margin: 0;
+  border: 0 none;
+  padding: 0;
+  float: left; /*For Gecko*/
+  display: inline;
+  list-style: none;
+  position: relative;
+  height: 24px;
+}
+
+ul#navmenu-h ul {
+  margin: 0;
+  border: 0 none;
+  padding: 0;
+  width: 160px;
+  list-style: none;
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: 0;
+}
+
+ul#navmenu-h ul:after /*From IE 7 lack of compliance*/{
+  clear: both;
+  display: block;
+  font: 1px/0px serif;
+  content: ".";
+  height: 0;
+  visibility: hidden;
+}
+
+ul#navmenu-h ul li {
+  width: 160px;
+  float: left; /*For IE 7 lack of compliance*/
+  display: block !important;
+  display: inline; /*For IE*/
+}
+
+/* Root Menu */
+ul#navmenu-h a {
+  border: 1px solid #FFF;
+  border-right-color: #CDCDCD;
+  border-bottom-color: #CDCDCD;
+  padding: 0 6px;
+  float: none !important; /*For Opera*/
+  float: left; /*For IE*/
+  display: block;
+  background: #E6EEEE;
+  color: #3D3D3D;
+  font: normal 11px/22px Arial,  sans-serif;
+  text-decoration: none;
+  height: auto !important;
+  height: 1%; /*For IE*/
+}
+
+/* Root Menu Hover Persistence */
+ul#navmenu-h a:hover,
+ul#navmenu-h li:hover a,
+ul#navmenu-h li.iehover a {
+  background: #F0F0F6;
+ color: #3D3D3D;
+}
+
+/* 2nd Menu */
+ul#navmenu-h li:hover li a,
+ul#navmenu-h li.iehover li a {
+  float: none;
+ background: #E6EEEE;
+  color: #3D3D3D;
+}
+
+/* 2nd Menu Hover Persistence */
+ul#navmenu-h li:hover li a:hover,
+ul#navmenu-h li:hover li:hover a,
+ul#navmenu-h li.iehover li a:hover,
+ul#navmenu-h li.iehover li.iehover a {
+  background: #F0F0F6;
+ color: #3D3D3D;
+}
+
+/* 3rd Menu */
+ul#navmenu-h li:hover li:hover li a,
+ul#navmenu-h li.iehover li.iehover li a {
+ background: #E6EEEE;
+  color: #3D3D3D;
+}
+
+/* 3rd Menu Hover Persistence */
+ul#navmenu-h li:hover li:hover li a:hover,
+ul#navmenu-h li:hover li:hover li:hover a,
+ul#navmenu-h li.iehover li.iehover li a:hover,
+ul#navmenu-h li.iehover li.iehover li.iehover a {
+  background: #F0F0F6;
+ color: #3D3D3D;
+}
+
+/* 4th Menu */
+ul#navmenu-h li:hover li:hover li:hover li a,
+ul#navmenu-h li.iehover li.iehover li.iehover li a {
+background: #E6EEEE;
+  color: #3D3D3D;
+}
+
+/* 4th Menu Hover */
+ul#navmenu-h li:hover li:hover li:hover li a:hover,
+ul#navmenu-h li.iehover li.iehover li.iehover li a:hover {
+  background: #CCC;
+  color: #FFF;
+}
+
+ul#navmenu-h ul ul,
+ul#navmenu-h ul ul ul {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 160px;
+}
+
+/* Do Not Move - Must Come Before display:block for Gecko */
+ul#navmenu-h li:hover ul ul,
+ul#navmenu-h li:hover ul ul ul,
+ul#navmenu-h li.iehover ul ul,
+ul#navmenu-h li.iehover ul ul ul {
+  display: none;
+}
+
+ul#navmenu-h li:hover ul,
+ul#navmenu-h ul li:hover ul,
+ul#navmenu-h ul ul li:hover ul,
+ul#navmenu-h li.iehover ul,
+ul#navmenu-h ul li.iehover ul,
+ul#navmenu-h ul ul li.iehover ul {
+  display: block;
+}
+.jstree a:hover{text-decoration:underline;}

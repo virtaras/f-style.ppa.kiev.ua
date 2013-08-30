@@ -1,0 +1,95 @@
+	<table border="1">
+	<tr>		<td>
+				id			</td>
+			<td>
+				name			</td>
+			<td>
+				showorder			</td>
+			<td>
+				goods_type			</td>
+		
+	</tr>
+
+	<tr>			<td>
+			&quot;1&quot;				</td>
+					<td>
+			&quot;XS&quot;				</td>
+					<td>
+			&quot;40&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;2&quot;				</td>
+					<td>
+			&quot;S&quot;				</td>
+					<td>
+			&quot;41&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;3&quot;				</td>
+					<td>
+			&quot;M&quot;				</td>
+					<td>
+			&quot;42&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;4&quot;				</td>
+					<td>
+			&quot;L&quot;				</td>
+					<td>
+			&quot;43&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;5&quot;				</td>
+					<td>
+			&quot;XL&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;6&quot;				</td>
+					<td>
+			&quot;XXL&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;7&quot;				</td>
+					<td>
+			&quot;36&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;8&quot;				</td>
+					<td>
+			&quot;40&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+		<tr>			<td>
+			&quot;9&quot;				</td>
+					<td>
+			&quot;38&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+					<td>
+			&quot;0&quot;				</td>
+				</tr>
+			</table>
+	

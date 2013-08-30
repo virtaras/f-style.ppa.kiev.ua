@@ -1,0 +1,35 @@
+
+	<iframe style="display:none;" name="login"></iframe>
+			<form method="post" action="<?=_SITE?>inc/login.php?login" target="login">
+			<strong>Вход для зарегистрированного пользователя</strong>
+			<table class="rtable" cellpadding="2" cellspacing="0" border="0">
+				<tr>
+					<td width="100" class="title2">E-mail</td>
+					<td><input type="text"  class="ibox" name="login_email" /></td>
+				</tr>
+				<tr>
+					<td width="100" class="title2">Пароль</td>
+					<td><input type="password"  class="ibox"  name="login_passw" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input  type="submit" class="buttons" value="Вход" /></td>
+				</tr>
+			</table>
+			</form>
+		<p>Если Вы ещё не стали зарегистрированным пользователем - это можно сделать на <a class="loginin " href="<?=_SITE?>new">странице регистрации</a>.</p>
+<br/>		
+		<strong>Восстановление пароля</strong>
+		<p>Для восстановления пароля введите ваш email. Вам будет выслано письмо содержащее пароль.</p>
+		<form method="post" action="<?=_SITE?>inc/login.php?restore" target="login">
+			<table class="rtable" cellpadding="2" cellspacing="0" border="0">
+				<tr>
+					<td width="100" class="title2">E-mail</td>
+					<td><input type="text"  class="ibox" name="remail" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input  type="submit" class="buttons" value="Отправить" /></td>
+				</tr>	
+			</table>	
+		</form>

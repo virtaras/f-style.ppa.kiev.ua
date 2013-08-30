@@ -1,0 +1,30 @@
+<?php if($ind == 1) { $z = 0; } $z++; ?>
+<div class="catalog-box-item <?=$z==4 ? 'last' : ''?>">
+<?
+$img = getResizeImageById($r["imid"],"h",array("height"=>"158"),$r["imformat"]);
+?>
+	<a href="<?=$tovar_url?>">
+							<div class="catalog-box-item-img">
+								<span class="vfix"></span><img src="<?=$img?>" alt="<?=$r["name"]?>"/>
+							</div>
+							<div class="catalog-box-item-title">
+								<span class="vfix"></span><span><?=$r["name"]?></span> 
+							</div>
+							<div class="catalog-box-item-dscr">
+							<?=$tovar["description"]?>
+							</div>
+							<div class="catalog-box-item-price">
+								<?=$price?> <?=$currency_symbol?>
+							</div>
+						</a>
+						<div class="main-sep"></div>
+</div>
+<?php
+if($z == 4)
+{
+	$z = 0;
+	?>
+	<div class="clear"></div>
+	<?
+}
+?>

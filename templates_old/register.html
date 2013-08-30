@@ -1,0 +1,55 @@
+
+<iframe  name="registration" style="display:none;"  ></iframe>
+		<form method="post" action="<?=_SITE?>inc/new.php?rg" target="registration">
+		<table cellspacing="0" class="rtable" cellpadding="2"  border="0">
+				<tr>
+					<td class="title2">E-mail:</td>
+					<td><input type="text" class="ibox" id="email" name="email" /></td><td>&nbsp;<sup style="color:red;">*</sup></td>
+				</tr>
+				<tr>
+					<td class="title2">Пароль:</td>
+					<td><input type="password" class="ibox" id="passw" name="passw" />
+					<div style="font-size:10px; color:#999999;">Длина минимум 5 символов.</div>
+					</td><td>&nbsp;<sup style="color:red;">*</sup></td>
+				</tr>
+				<tr>
+					<td class="title2">Повторите пароль:</td>
+					<td><input type="password" class="ibox" id="repassw" name="repassw" /></td><td>&nbsp;<sup style="color:red;">*</sup></td>
+					<td></td>
+				</tr>
+				<?
+			$fsql = mysql_query("SELECT * FROM clients_fields ORDER BY showorder");
+			while($f = mysql_fetch_assoc($fsql))
+			{
+				echo "<tr>";
+				if($f["fieldtype"] != "4")
+				{
+					?>
+					<td><?=$f["title"]?>:</td>
+					<td><input class="ibox" id="<?=$f["code"]?>" name="<?=$f["code"]?>" value="" style="width:300px;" type="text" /></td>
+					<?
+				}
+				else
+				{
+				?>
+				<td><?=$f["title"]?>:</td>
+				<td >
+				<textarea class="ibox" rows="5" style="width:300px;margin-top:3px;" id="<?=$f["code"]?>" name="<?=$f["code"]?>" ></textarea></td>
+					<?
+					} 
+				?>
+				<td>&nbsp;<? if($f["isrequired"] == "1") { ?><sup style="color:red;">*</sup><? } ?></td> <?
+				echo "</tr>";
+			}
+			?>
+				<tr>
+					<td></td>
+					<td style="padding-top:20px;"><input type="submit" class="buttons" value="Регистрация" /></td><td></td>
+				</tr>
+				
+			</table>
+			<sup style="color:red;">*</sup>&nbsp;-&nbsp;поля обязательные для заполнения
+			<br /><br />
+		</form>
+		<p>Если Вы зарегистрированный пользователь - перейдите на <a class="loginin" href="<?=_SITE?>login.html">страницу входа</a>.</p>
+		<div id="registration_info" title="Регистрация"></div>

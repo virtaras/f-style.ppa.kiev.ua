@@ -1,0 +1,1 @@
+<iframe frameborder="0" width="100%" src="index.php?t=request&parent=<?=$_GET["id"]?>&noheader&nofooter" height="500px;"  ></iframe>

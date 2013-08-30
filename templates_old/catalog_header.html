@@ -1,0 +1,205 @@
+<?php if(_CONTENT_TYPE != "search") { ?>
+<script type="text/javascript">topID = <?=$head["parentid"]?>;</script>
+<div class="wsbw">
+<div class="side-barr filterMarker">
+				<div class="tag-filter-box">
+					<div class="tag-filter-box-title">
+						Фильтр товаров:
+					</div>
+					<div class="tag-filter-item" data-tag-box="1">
+						<div class="tag-filter-item-title">
+							Категории:
+						</div>
+						<div class="tag-filter-list">
+						
+						</div>
+					</div>
+					<div class="tag-filter-item" data-tag-box="2">
+						<div class="tag-filter-item-title">
+							Бренды:
+						</div>
+						<div class="tag-filter-list">
+							
+						</div>
+					</div>
+					<div class="tag-filter-item" data-tag-box="3">
+						<div class="tag-filter-item-title">
+							Размеры:
+						</div>
+						<div class="tag-filter-list">
+							
+						</div>
+					</div>
+					<div class="tag-filter-item" data-tag-box="4">
+						<div class="tag-filter-item-title">
+							Цвет:
+						</div>
+						<div class="tag-filter-list">
+							
+						</div>
+					</div>
+					<div class="tag-filter-item" data-tag-box="5">
+						<div class="tag-filter-item-title">
+							Сезон:
+						</div>
+						<div class="tag-filter-list">
+							
+						</div>
+					</div>
+					<div class="tag-filter-item" >
+						<a href="#" class="clearall">Очистить все фильтры</a>
+					</div>
+				</div>
+				<div class="side-barr-list">
+					<div class="side-barr-list-title">
+						Категории
+					</div>
+					<ul data-tag-box="1" class="tagFilterSelectArea category_select">
+						<?php
+						$arr = array();
+						if($catalog_array[$head["id"]]["scount"] > 0)
+						{
+							$arr = get_catalog_items_all($head["id"]);
+						}
+						else
+						{
+							$arr = get_catalog_items_all($catalog_array[$head["id"]]["parent"]);
+						}
+						?>
+						<?php foreach($arr as $key=>$value) { ?>
+						<li <?php if($head["id"] == $key) { ?> class="active" <?php } ?> data-tag-index="<?=$key?>"><a class="tag-name"  href="/<?=$value["url"]?>/"><?=$value["name"]?></a></li>
+						<?php } ?>
+					</ul>
+				</div>
+				<div class="side-barr-list jNice">
+					<div class="side-barr-list-title">
+						Бренды
+					</div>
+					<div class="scroll-pane" >
+						<ul data-tag-box="2" class="tagFilterSelectArea brand_select">
+							<?php $arr = getBrandsListAll(); 
+							foreach($arr as $key=>$value) { ?>
+							<li data-tag-index="<?=$value["id"]?>"><label><input type="checkbox" /><span class="tag-name"><?=$value["name"]?></span></label></li>
+							<?php } ?>
+						</ul>
+					</div>
+				</div>
+				<div class="main-sep"></div>
+				<div class="side-barr-filter jNice">
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Размер
+						</div>
+						<div class="size-box" data-tag-box="3" class="size_select" >
+						<?php
+						global $db;
+						$arr = dbQuery("SELECT * FROM r1194 ORDER BY showorder",$db);
+						$new_array = array_chunk($arr,ceil(count($arr)/2),TRUE);				
+						?>
+							<div class="size-box-coll">
+								<?php
+								foreach($new_array[0] as $k=>$value)
+								{
+									?>
+									<label data-tag-index="<?=$value["id"]?>"><input type="checkbox" /><span class="tag-name"><?=$value["name"]?></span></label><br/>
+									<?
+								}
+								?>
+							</div>
+							<div class="size-box-coll last">
+								<?php
+								foreach($new_array[1] as $k=>$value)
+								{
+									?>
+									<label data-tag-index="<?=$value["id"]?>"><input type="checkbox" /><span class="tag-name"><?=$value["name"]?></span></label><br/>
+									<?
+								}
+								?>
+							</div>
+							<div class="clear"></div>
+							</div>
+	
+					</div></div>
+					<div class="main-sep nm"></div>
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Цена
+						</div>
+						<div class="filter-listed priceRanger">
+							<input type="hidden"/>
+							<ul>
+								<li data-filter-id-start="0" data-filter-id-finish="1000"><a data-filter-id="1" href="#">До 1000 грн.</a></li>
+								<li data-filter-id-start="1000" data-filter-id-finish="2500"><a data-filter-id="2" href="#">1000 - 2500 грн.</a></li>
+								<li data-filter-id-start="2500" data-filter-id-finish="5000"><a data-filter-id="3" href="#">2500 - 5000 грн.</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="main-sep nm"></div>
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Цвет
+						</div>
+						<div class="filter-listed colorType">
+							<input type="hidden"/>
+							<ul id="colorSlider" class="jcarousel-skin-tango1">
+							<?
+							global $db;
+							$arr = dbQuery("SELECT * FROM r1193 ORDER BY showorder",$db);
+							foreach($arr as $current) {
+							?>	
+								<li data-filter-id="<?=$current["id"]?>"><a style="background:<?=$current["code"]?>;" data-filter-id="<?=$current["id"]?>" title="<?=$current["name"]?>" href="#"></a></li>
+							<?php } ?>	
+							</ul>
+						</div>
+					</div>
+					<div class="main-sep nm"></div>
+					<div class="side-barr-filter-item">
+						<div class="side-barr-filter-title">
+							Сезон
+						</div>
+						<div class="filter-listed seasonType">
+							<input type="hidden"/>
+							<ul >
+								<?php
+								global $db;
+								$arr = dbQuery("SELECT * FROM r1195 ORDER BY showorder",$db);
+								foreach($arr as $current) {
+								?>
+								<li data-filter-id="<?=$current["id"]?>"><a data-filter-id="<?=$current["id"]?>" href="#"><?=$current["name"]?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="main-sep"></div>
+			</div>
+				<div class="side-content" id="catalog_inner_content">	<?php } ?>
+			<div class="catalog-return-filter">
+					<div class="catalog-return-filter-sort">
+						<a href="javascript:void(0);" class="<?=(isset($_GET["sort"]) && ($_GET["sort"] == "00" || $_GET["sort"] == "01") ? "active" : "")?><?=(isset($_GET["sort"]) && $_GET["sort"] == "00" ? " asc" : "")?><?=(isset($_GET["sort"]) && $_GET["sort"] == "01" ? " desc" : "")?>" onclick="set_sort('<?=(isset($_GET["sort"]) && $_GET["sort"] == "00" ? "01" : "00")?>')"  >ПО Названию</a>
+						<a href="javascript:void(0);" onclick="set_sort('<?=(isset($_GET["sort"]) && $_GET["sort"] == "10" ? "11" : "10")?>')" class="<?=(isset($_GET["sort"]) && ($_GET["sort"] == "10" || $_GET["sort"] == "11") ? "active" : "")?><?=(isset($_GET["sort"]) && $_GET["sort"] == "10" ? " asc" : "")?><?=(isset($_GET["sort"]) && $_GET["sort"] == "11" ? " desc" : "")?>" >По Цене</a> 
+						<a href="javascript:void(0);" >по Популярности</a>
+					</div>
+					<div class="catalog-return-filter-show">
+						
+						Показать по:   
+						
+						<?php
+						$pagesizes = explode(",",setting("pagesize_array"));
+						foreach($pagesizes as $current){
+							?>
+							<a href="javascript:void(0);" <?=($pagesize == $current ? "class='active'" : "")?> onclick="set_page_size(<?=$current?>)"><?=$current?></a>
+							<?
+						}
+						?>
+						<a href="javascript:void(0);" <?=($pagesize == 1000000 ? "class='active'" : "")?> onclick="set_page_size(1000000)">Все</a>      
+					</div>
+					<?php if($pagecount > 1) { ?>
+					<div class="catalog-return-filter-pagination">
+						<ul>
+							<?=$pager?>
+						</ul>
+					</div>
+					<?php } ?>
+				</div>
+					<div class="main-sep"></div>

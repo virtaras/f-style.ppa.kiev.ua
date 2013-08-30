@@ -1,0 +1,31 @@
+<div class="clear"></div>
+<div class="catalog-return-filter">
+					<div class="catalog-return-filter-show">
+						Показать по:   
+						<?
+						foreach($pagesizes as $current){
+							?>
+							<a href="javascript:void(0);" <?=($pagesize == $current ? "class='active'" : "")?> onclick="set_page_size(<?=$current?>)"><?=$current?></a>
+							<?
+						}?>      
+<a href="javascript:void(0);" <?=($pagesize == 1000000 ? "class='active'" : "")?> onclick="set_page_size(1000000)">Все</a>      						
+					</div>
+						<?php if($pagecount > 1) { ?>
+					<div class="catalog-return-filter-pagination">
+						<ul>
+							<?=$pager?>
+						</ul>
+					</div>
+					<?php } ?>
+				</div>
+				<div class="main-sep"></div>
+				<?php if(_CONTENT_TYPE != "search") { ?>
+				<div class="page-dscr">
+					<div class="ctext">
+						<?=htmlspecialchars_decode($head["content_1"],ENT_QUOTES)?>
+					</div>
+				</div>
+</div>
+</div>
+<?php } ?>
+<div class="clear"></div>

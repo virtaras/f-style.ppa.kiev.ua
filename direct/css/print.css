@@ -1,0 +1,35 @@
+* {color:black;}
+body{margin:0;padding:0;}
+body,input,select,td,div,span,textarea ,fieldset,legend ,a{ font-family: Arial, sans-serif;font-size:12px;}
+fieldset {border:1px solid #C7D9E2;padding-left:5px;padding-bottom:5px;}
+img {border:0px;cursor:pointer;}
+th img{display:none;}
+legend{color:#708090}
+form{margin-top:0px;padding-top:0px;}
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover {text-decoration:none;}
+.mainmenu{display:none;}
+.tool_bar{display:none;}
+.rtd{display:none;}
+.ltd{display:none;}
+.info{display:none;}
+.td0{display:none;}
+#top_panel {display:none;}
+/*table*/
+.t {color:black;}
+.t th{color:black;}
+.t td{color:black;}
+.tr{color:black;background-color:white;}
+.atr{color:black;background-color:white;}
+.ctr{color:black;background-color:white;}
+/*table*/
+.line{display:none;}
+
+
+
+#div_print_settings {display:none;}
+#div_print_settings *{display:none;}
+
+#div_print_result div{border:none;}
+#div_print_result table td{border:1px solid white;} 
