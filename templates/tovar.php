@@ -96,6 +96,7 @@
 		$(".stuff-box").html(res);
 	}
 	function showTovarView(goodsid){
+		$("#preloader-page").show();
 		$.post(baseurl+"templates/ajax/tovar.php",{action:"showTovarView",goodsid:goodsid},afterShowTovarView);
 	}
 	$(".stuff-box").ready(function(){

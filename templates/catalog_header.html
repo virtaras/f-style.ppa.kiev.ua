@@ -1,4 +1,8 @@
-<?php if(_CONTENT_TYPE != "search") { ?>
+<?php 
+global $cur_goods_groups;
+global $sales;
+if(_CONTENT_TYPE != "search") {
+global $catalog_array;?>
 <script type="text/javascript">topID = <?=($head["parentid"]>0) ? $head["parentid"] : $head["id"]?>;</script>
 <div class="wsbw">
 <div class="side-barr filterMarker">
@@ -57,7 +61,7 @@
 					<ul data-tag-box="1" class="tagFilterSelectArea category_select">
 						<?php
 						$arr = array();
-						if($catalog_array[$head["id"]]["scount"] > 0)
+						if((int)($catalog_array[$head["id"]]["scount"]) > 0)
 						{
 							$arr = get_catalog_items_all($head["id"]);
 						}
@@ -77,9 +81,10 @@
 					</div>
 					<div class="scroll-pane" >
 						<ul data-tag-box="2" class="tagFilterSelectArea brand_select">
-							<?php $arr = getBrandsListAll(); 
-							foreach($arr as $key=>$value) { ?>
-							<li data-tag-index="<?=$value["id"]?>"><label><input type="checkbox" /><span class="tag-name"><?=$value["name"]?></span></label></li>
+							<?php $arr = getBrandsListAll();
+							foreach($arr as $key=>$value) {
+								if(isset($filters["brands"]) && array_search($value["id"],$filters["brands"])!==false){$class="class='active'";$checked="checked='checked'";}else{$class="";$checked="";}?>
+							<li <?=$class?> data-tag-index="<?=$value["id"]?>"><label><input type="checkbox" <?=$checked?> /><span class="tag-name"><?=$value["name"]?></span></label></li>
 							<?php } ?>
 						</ul>
 					</div>
@@ -171,10 +176,27 @@
 							</ul>
 						</div>
 					</div>
+					<div class="goods_groups">
+						<?$goods_groups=mysql_query("SELECT goods_groups.* FROM goods_groups");
+						while($goods_group=mysql_fetch_assoc($goods_groups)){
+							if(isset($cur_goods_groups[$goods_group["code"]]) && $cur_goods_groups[$goods_group["code"]]>0) $checked="checked='checked'"; else $checked="";?>
+							<div class="item">
+								<input type="checkbox" name="<?=$goods_group["code"]?>" id="<?=$goods_group["code"]?>" <?=$checked?> />
+								<?=$goods_group["name"]?>
+							</div>
+						<?}?>
+					</div>
+					<div class="sales">
+						<?if(isset($sales) && $sales>0) $checked="checked='checked'"; else $checked="";?>
+						<div class="item">
+							<input type="checkbox" name="sales" id="sales" <?=$checked?> />
+							Sales
+						</div>
+					</div>
 				</div>
 				<div class="main-sep"></div>
 			</div>
-				<div class="side-content" id="catalog_inner_content">	<?php } ?>
+			<div class="side-content" id="catalog_inner_content">	<?php } ?>
 			<div class="catalog-return-filter">
 					<div class="catalog-return-filter-sort">
 						<a href="javascript:void(0);" class="<?=(isset($_GET["sort"]) && ($_GET["sort"] == "00" || $_GET["sort"] == "01") ? "active" : "")?><?=(isset($_GET["sort"]) && $_GET["sort"] == "00" ? " asc" : "")?><?=(isset($_GET["sort"]) && $_GET["sort"] == "01" ? " desc" : "")?>" onclick="set_sort('<?=(isset($_GET["sort"]) && $_GET["sort"] == "00" ? "01" : "00")?>')"  >ПО Названию</a>

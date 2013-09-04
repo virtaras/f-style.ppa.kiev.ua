@@ -56,7 +56,7 @@
 			<div class="text-wrap">
 			  <input value="<?=$quantity?>" name="q_<?=$tovar["id"]?>" class="mquant" type="text" />
 			</div>
-			<a class="dell" href="javascript:removeFromBasket('<?=$tovar["id"]?>');" onclick="javascript:return confirm('Удалить товар из заказа ?');" >Удалить</a> </div>
+			<a class="dell" href="javascript:removeFromBasket('<?=$tovar["id"]?>')" onclick="javascript:void(0);" >Удалить</a> </div>
 		  <div class="cart-box-result-item-coll5"> <span class="vfix"></span>
 			<div class="text-wrap">
 			  <div class="summbox">

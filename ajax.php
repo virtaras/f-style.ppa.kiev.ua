@@ -7,6 +7,7 @@ require("inc/connection.php");
 require("inc/global.php");
 require("inc/emarket.php");
 require("inc/engine.php");
+require("virtaras/functions.php");
 function show_compared($parent)
 {
 	  if(isset($_SESSION["compare_".$parent]))

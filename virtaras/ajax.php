@@ -36,6 +36,14 @@ if(isset($_POST["action"])){
 			$id=555;
 			echo $id;
 			break;
+		
+		case "clear_basket":
+			$empty=array();
+			$_SESSION["basket"]=serialize($empty);
+			setcookie("basket",$_SESSION["basket"],(time()-60*60*24*30),"/");
+			echo "Корзина очищена!";
+			break;
+			
 	}
 }
 ?>

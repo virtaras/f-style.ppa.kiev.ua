@@ -62,8 +62,8 @@
 ?>	
 </head>
 <body onload="show_cart()"  >
-	<div class="izbrannoe-box" style="display:inline-block;position:fixed;right:50px;top:150px;">
-		<?if(count($_COOKIE["izbrannoe"])){?><a href="/kabinet/izbrannoe/"><img src="/templates/images/izbrannoe.png" style="width:50px;height:150px;" /></a><?}?>
+	<div class="izbrannoe-box" style="display:inline-block;position:fixed;right:10px;top:80px;">
+		<?if(count($_COOKIE["izbrannoe"])){?><a href="/kabinet/izbrannoe/"><img src="/templates/images/izbrannoe.png" style="width:30px;height:114px;" /></a><?}?>
 	</div>
 	
 	<div class="header-line"></div>
@@ -166,7 +166,7 @@
 		<div class="header-menu">
 			<ul>
 				<?php
-				$arr = get_catalog_items_all(0); $ind = 0;
+				$arr = get_catalog_items_all(69); $ind = 0;
 				foreach($arr as $key=>$item) {
 				$ind++;
 				
@@ -266,7 +266,7 @@
 				<li><a href="/brands/">бренды</a></li>
 				<li><a href="/novinki/">новинки</a></li>
 				<li><a href="#">акции</a></li>
-				<li><a href="#">sales</a></li>
+				<li><a href="/sales/">sales</a></li>
 				<li class="last"><a href="/gid-po-stily">Гид по стилю</a></li>
 				<!--<li class="last"><a href="#">детская одежда</a></li>-->
 			</ul>
@@ -391,13 +391,13 @@
 	
 	<div id="preloader-page" class="loading_modal" style="display: none;
     position:   fixed;
-    z-index:    1000;
+    z-index:    10000;
     top:        0;
     left:       0;
     height:     100%;
     width:      100%;
-    background: rgba( 0, 0, 0, .8 ) 
-                url('templates/images/loader.gif') 
+    background: rgba( 0, 0, 0, .98 ) 
+                url('/templates/images/loader.gif') 
                 50% 50% 
                 no-repeat;"><!-- bottom of page --></div>
 	<!--<div id="test">
@@ -410,10 +410,9 @@ function afterShowGoodsPreview(res){
 	//alert(res);
 	//$.when($("#stuff-box").html(res)).then(handleLoad());
 	$("#stuff-box").html(res);
-	//$("#preloader-page").hide();
 }
 function showGoodsPreview(goodsid){
-	//$("#preloader-page").show();
+	$("#preloader-page").show();
 	$.post(baseurl+"templates/ajax/ajax.php",{action:"showGoodsPreview",goodsid:goodsid},afterShowGoodsPreview);
 }
 
@@ -433,7 +432,8 @@ function toIzbrannoe(goodsid){
 }
 function afterUpdateGoodsFields(res,goodsid,tovarid){
 	//alert(goodsid);
-	$.when( $("#"+tovarid+'-holder').html(res) ).then(handleLoad());
+	//$.when( $("#"+tovarid+'-holder').html(res) ).then(handleLoad());
+	$("#"+tovarid+'-holder').html(res);
 }
 function updateGoodsFields(goodsid,tovarid,field,value){
 	$("#"+goodsid+'-preloader').show();

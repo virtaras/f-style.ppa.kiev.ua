@@ -21,7 +21,8 @@ RewriteCond %{REQUEST_URI} !(.*)/$
 RewriteRule ^(.*)$ http://f-style.ppa.kiev.ua/$1/ [L,R=301]
 
 RewriteRule ^image/frame/([A-Za-z0-9-_]+)/([0-9]*)/([0-9]*)/([0-9]*).jpg/?$ thumb_frame.php?table=$1&fwidth=$2&fheight=$3&id=$4 [L]
-
+RewriteRule ^novinki/?$ ^katalog-c69/?r1197=1 [L]
+RewriteRule ^sales/?$ ^katalog-c69/?sales=1 [L]
 RewriteRule ^confirm-email/([^/\.]+)/?$ index.php?content=confirm-email&hash=$1 [L]
 
 RewriteRule ^questions.html?$ index.php?content=allquestion [L]

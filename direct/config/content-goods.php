@@ -1,6 +1,6 @@
 <?php
 $title = "Контент";
-$source = "SELECT id,0 as eshoworder,name,urlname,title,description,keywords,showorder,ispublish,goods,content_id
+$source = "SELECT id,0 as eshoworder,name,urlname,title,description,keywords,showorder,ispublish
  FROM content";
 $where = " WHERE parentid = 0 ";
 if(isset($_GET["parent"]))
@@ -10,13 +10,13 @@ if(isset($_GET["parent"]))
 $source = $source.$where;
 
 
-$title_fields = array("name"=>"Наименование","caption"=>"Заголовок","title"=>"TITLE","keywords"=>"KEYWORDS","description"=>"DESCRIPTION","eshoworder"=>"Позиция","showorder"=>"Поз.","in_index"=>"На главную","sdate"=>"Дата","ispublish"=>"Публиковать","urlname"=>"URL","content_date"=>"Дата","is_fixed"=>"Топ","goods"=>"Привязанные товары","content_id"=>"Привязанные контенты");//advanced title field in table header
+$title_fields = array("name"=>"Наименование","caption"=>"Заголовок","title"=>"TITLE","keywords"=>"KEYWORDS","description"=>"DESCRIPTION","eshoworder"=>"Позиция","showorder"=>"Поз.","in_index"=>"На главную","sdate"=>"Дата","ispublish"=>"Публиковать","urlname"=>"URL","content_date"=>"Дата","is_fixed"=>"Топ");//advanced title field in table header
 
 
 $template_fields["eshoworder"] = "templates/position.php";
 $table_edit_mode = 1;
 
-$select_fields = "*,id as img";
+$select_fields = "*,id as img,id as content_goods";
 $edit_title_fields["pagesize"] = "Размер страницы";
 $edit_title_fields["urlname"] = "URL страницы";
 $edit_title_fields["in_index"] = "На главную";
@@ -63,6 +63,10 @@ $controls["additional"]->template = "templates/info2.php";
 $table_content_top_1 = "templates/path.php";
 $controls["img"] = new Control("img","template");
 $controls["img"]->template = "templates/img.php";
+
+$controls["content_goods"] = new Control("content_goods","template");
+$controls["content_goods"]->template = "templates/content_goods.php";
+
 $controls["videolist"] = new Control("videolist","template");
 $controls["videolist"]->template = "templates/videolist.php";
 $controls["preview"] = new Control("preview","longtext","Кратко");
@@ -71,8 +75,9 @@ $controls["preview"]->css_style = "width:500px;";
 $exclude_fields_edit = array("id","showorder","views","price","siteuser","pagesize","create_date");
 global $sourceid;
 $sourceid = 1;
-$tab1 = array("name","urlname","pagesize","formid","showtype","script","in_index","preview","info","sdate","video","full_video","ispublish","siteuser","hide_content","tags","is_fixed","goods");
+$tab1 = array("name","urlname","pagesize","formid","showtype","script","in_index","preview","info","sdate","video","full_video","ispublish","siteuser","hide_content","tags","is_fixed");
 $tab5 = array("img");
+$tab8 = array("content_goods");
 $tab3 = array("title","description","keywords");
 $tab4 = array("parentid");
 $tab7 = array("additional");
@@ -80,7 +85,7 @@ $tab6 = array("videolist");
 
 if(isset($_GET["id"]) && $_GET["id"] != "-1")
 {
-   $tabs = array(new Tab("Основные данные","",$tab1),new Tab("Изображения","",$tab5),new Tab("SEO","",$tab3),new Tab("Владелец","",$tab4)); // tabs on page 
+   $tabs = array(new Tab("Основные данные","",$tab1),new Tab("Изображения","",$tab5),new Tab("SEO","",$tab3),new Tab("Владелец","",$tab4),new Tab("Товары","",$tab8)); // tabs on page 
 }
 else
 {
@@ -104,9 +109,6 @@ $controls["ispublish"]->default_value = 1;
 
 $controls["hide_content"] = new Control("hide_content","checkbox","Скрыть контент");
 $controls["is_fixed"] = new Control("is_fixed","checkbox","Топ");
-
-$controls["goods"] = new Control("goods","text","Товары (id через запятую)");
-$controls["content_id"] = new Control("content_id","text","Контенты (id через запятую)");
 
 if(!isset($_GET["id"]))
 {

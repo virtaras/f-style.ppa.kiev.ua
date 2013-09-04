@@ -24,9 +24,10 @@ function get_content()
 	</script>
 
 	<?
-	$sql = mysql_query("SELECT orders.id,DATE_FORMAT(orders.create_date,'%d.%m.%Y') as odate,orders.r78 as cname,discount,deliverysumm,orders_status.name as stname FROM orders 
+	$sql_text="SELECT orders.id,DATE_FORMAT(orders.create_date,'%d.%m.%Y') as odate,orders.r221 as cname,discount,deliverysumm,orders_status.name as stname FROM orders 
 	LEFT JOIN orders_status ON orders_status.id = orders.status
-	WHERE orders.userid =  ".$_SESSION["login_user"]["id"]." ORDER BY orders.create_date DESC");
+	WHERE orders.userid =  ".$_SESSION["login_user"]["id"]." ORDER BY orders.create_date DESC";
+	$sql = mysql_query($sql_text);
 	while($row = mysql_fetch_assoc($sql))
 	{
 		?>
@@ -38,19 +39,20 @@ function get_content()
 		<th width="12%">Сумма,грн</th>
 	</tr>
 	<?
-	$details = mysql_query("SELECT ordersrow.id,ordersrow.goodsname,ordersrow.vname,ordersrow.quantity,ordersrow.price as rowprice,ordersrow.goodsid,goods.* FROM ordersrow 
-LEFT JOIN goods ON goods.id = ordersrow.goodsid
-WHERE ordersrow.parentid = '$row[id]'");
+	$details_sql="SELECT ordersrow.id,ordersrow.goodsname,ordersrow.vname,ordersrow.quantity as rowquant,ordersrow.price as rowprice,ordersrow.goodsid,goods.* FROM ordersrow 
+		LEFT JOIN goods ON goods.id = ordersrow.goodsid
+		WHERE ordersrow.parentid = '$row[id]'";
+	$details = mysql_query($details_sql);
 	$s = 0;
 	while($r = mysql_fetch_assoc($details))
 	{
-		$s = $s + ($r["quantity"]*$r["rowprice"]);
+		$s = $s + ($r["rowquant"]*$r["rowprice"]);
 		?>
 		<tr class="history_row">
 			<td class="name"><?=$r["goodsname"]." ".$r["vname"]?></td>
-			<td style="text-align:center;"><?=$r["quantity"]?></td>
+			<td style="text-align:center;"><?=$r["rowquant"]?></td>
 			<td style="text-align:center;"><?=$r["rowprice"]?></td>
-			<td style="text-align:center;"><?=($r["rowprice"]*$r["quantity"])?></td>
+			<td style="text-align:center;"><?=($r["rowprice"]*$r["rowquant"])?></td>
 		</tr>
 		<?
 	}

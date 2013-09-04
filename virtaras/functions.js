@@ -15,12 +15,7 @@ function afterRemoveFromBasket(res){
 	//alert(res);
 }
 function removeFromBasket(id){
-	id = id || -1;
-	if(id!=-1){
-		$.post("/virtaras/ajax.php",{action:"removeFromBasket",id:id},afterRemoveFromBasket);
-	}else{
-		alert("INVALID_ID");
-	}
+	$.post("/virtaras/ajax.php",{action:"removeFromBasket",id:id},afterRemoveFromBasket);
 }
 function afterSetSessionKeyValue(res){
 	//alert(res);
@@ -30,6 +25,9 @@ function setSessionKeyValue(key,value){
 }
 function showAlert(msg){
 	alert(msg);
+}
+function clear_basket(){
+	$.post("/virtaras/ajax.php",{action:"clear_basket"},function(r){document.location.reload(true);});
 }
 /*
 function afterGetIdByGoodsidFilters(res){

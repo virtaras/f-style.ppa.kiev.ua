@@ -16,16 +16,17 @@ if(isset($_POST["action"])){
 			$good=execute_row_assoc("SELECT * FROM goods WHERE id='$goodsid'");
 			$maingoodsid=($good["goodsid"]>0) ? $good["goodsid"] : $good["id"];
 			$maingood=execute_row_assoc("SELECT * FROM goods WHERE id='$maingoodsid'");
-			if($good["id"]==$maingood["id"]) $good=execute_row_assoc("SELECT * FROM goods WHERE goodsid='$maingoodsid'");
 			$img = getResizeImageById($good["imid"],"h",array("height"=>"158"),$good["imformat"]);
 			$g_colors=get_goods_filters($good,'r1193');
 			$g_sizes=get_goods_filters($good,'r1194');
 			$allGoods=getRowsFromDB("SELECT goods.* FROM goods WHERE goodsid='$maingoodsid'");
+			if($good["id"]==$maingood["id"] && count($g_colors)) $good=execute_row_assoc("SELECT * FROM goods WHERE goodsid='$maingoodsid'");
 			/////////////////////////////////////////////////////////////////////////////////////?>
 			
 				<div class="visual-preview-box">
 			<?php
 			$count=1;
+			if(count($g_colors)){
 			foreach($g_colors as $key=>$color){
 				if($color["id"]==$good["r1193"]) $current="curent"; else $current="";
 				$imagesOfColor=getRowsFromDB("SELECT images.* FROM images WHERE source=3 AND parentid IN (SELECT id FROM goods WHERE goodsid=$maingoodsid AND r1193='".$color["id"]."') LIMIT 0,5");
@@ -38,6 +39,38 @@ if(isset($_POST["action"])){
 							<?$goodind=1;
 							foreach($imagesOfColor as $goodimage){?>
 								<li><span class="vfix"></span><img src="/images/files/<?=$goodimage["image"]?>" alt="<?=$goodimage["link"]?>" style="height:525px;" /></li>
+							<?}?>
+						</ul>
+					</div>
+					<div class="visual-preview-box-thumbs">
+						<?$goodind=1;
+						foreach($imagesOfColor as $goodimage){?>
+							<a data-slider-index="<?=$goodind?>" href="javascript:void(0);"><img src="/image/frame/images/60/60/<?=$goodimage["id"]?>.jpg" alt=""/></a>
+						<?}?>
+					</div>
+				</div>
+			<?}
+			}else{?>
+				<?$current="curent";
+				$imagesOfColor=getRowsFromDB("SELECT images.* FROM images WHERE source=3 AND parentid=$maingoodsid LIMIT 0,5");
+				?>
+				<div class="visual-preview-box-item <?=$current?>" data-color-index="<?=$color["id"]?>">
+					<div class="visual-preview-box-slider" style="float:right;">
+						<ul>
+							<?$goodind=1;
+							foreach($imagesOfColor as $goodimage){?>
+								<li style="min-width:417px;"><span class="vfix"></span>
+								<span class="visual-preview-box-slider-item ">
+								<div id="wrap" style="top:0px;z-index:9999;position:relative;">
+								<a href="/images/files/<?=$goodimage["image"]?>" class="cloud-zoom" style="position: relative; display: block;">
+								<img src="/images/files/<?=$goodimage["image"]?>" alt="<?=$goodimage["image"]?>" style="height:525px;"></a>
+								<div class="mousetrap" style=" z-index: 999; position: absolute; width: 415px; height: 193px; left: 0px; top: 0px; cursor: auto;">
+								</div>
+								</div>
+								</span>
+								
+								
+								<!--<img src="/images/files/<?=$goodimage["image"]?>" alt="<?=$goodimage["link"]?>" style="height:525px;" />--></li>
 							<?}?>
 						</ul>
 					</div>
@@ -139,7 +172,7 @@ if(isset($_POST["action"])){
 					$('.stuff-box img').bind('load', function(){
 					  l++;
 					  if (l == $('.stuff-box img').length) {
-						 handleLoad();
+						 $.when(handleLoad()).then($("#preloader-page").hide());
 					  }
 					});			
 				</script>

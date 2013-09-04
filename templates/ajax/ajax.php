@@ -16,11 +16,11 @@ if(isset($_POST["action"])){
 			$good=execute_row_assoc("SELECT * FROM goods WHERE id='$goodsid'");
 			$maingoodsid=($good["goodsid"]>0) ? $good["goodsid"] : $good["id"];
 			$maingood=execute_row_assoc("SELECT * FROM goods WHERE id='$maingoodsid'");
-			if($good["id"]==$maingood["id"]) $good=execute_row_assoc("SELECT * FROM goods WHERE goodsid='$maingoodsid'");
 			$img = getResizeImageById($good["imid"],"h",array("height"=>"158"),$good["imformat"]);
 			$g_colors=get_goods_filters($good,'r1193');
 			$g_sizes=get_goods_filters($good,'r1194');
 			$allGoods=getRowsFromDB("SELECT goods.* FROM goods WHERE goodsid='$maingoodsid'");
+			if($good["id"]==$maingood["id"] && count($g_colors)) $good=execute_row_assoc("SELECT * FROM goods WHERE goodsid='$maingoodsid'");
 			?>
 			<div class="imagehandler">
 				<div class="nextprev-box">
@@ -29,7 +29,7 @@ if(isset($_POST["action"])){
 				</div>
 				<div class="visual-preview-box">
 					<?$count=1;
-					//if(!count($g_colors)) //if there is no good with color
+					if(count($g_colors)){ //if there is no good with color
 					foreach($g_colors as $key=>$color){
 						//if($count==1) $current="curent"; else $current="";
 						if($color["id"]==$good["r1193"]) $current="curent"; else $current="";
@@ -62,7 +62,34 @@ if(isset($_POST["action"])){
 							</div>
 						</div>
 						<?++$count;
-					}?>
+					}
+					}else{
+						$current="curent";
+						$imagesOfColor=getRowsFromDB("SELECT images.* FROM images WHERE source=3 AND parentid='".$maingood["id"]."' LIMIT 0,5");
+						?>
+						<div class="visual-preview-box-item <?=$current?>" data-color-index="1">
+							<div class="visual-preview-box-thumbs">
+								<div class="vfix"></div>
+								<div class="thumbs-vfix">
+									<?$goodind=1;
+									foreach($imagesOfColor as $goodimage){?>
+										<!--<a data-slider-index="<?=$goodind?>" href="#"><img src="/images/files/<?=$goodimage["image"]?>" alt=""/></a>-->
+										<a data-slider-index="<?=$goodind?>" href="#"><img src="/image/frame/images/60/60/<?=$goodimage["id"]?>.jpg" alt=""/></a>
+										<?++$goodind;
+									}?>
+								</div>
+							</div>
+							<div class="visual-preview-box-slider">
+								<ul>
+									<?$goodind=1;
+									foreach($imagesOfColor as $goodimage){?>
+										<li><span class="vfix"></span><img src="/images/files/<?=$goodimage["image"]?>" alt="<?=$goodimage["link"]?>" style="height:525px;" /></li>
+										<?++$goodind;
+									}?>
+								</ul>
+							</div>
+						</div>
+					<?}?>
 				</div>
 				<div class="stuff-dscr">
 					<div class="stuff-dscr-title">
@@ -157,7 +184,7 @@ if(isset($_POST["action"])){
 				$('.imagehandler img').bind('load', function(){
 				  l++;
 				  if (l == $('.imagehandler img').length) {
-					 handleLoad();
+					 $.when(handleLoad()).then($("#preloader-page").hide());
 				  }
 				});			
 			</script>
@@ -238,7 +265,7 @@ if(isset($_POST["action"])){
 										if($size["id"]==$r["r1194"]) $class="active"; else $class="";
 										$href="javascript:updateGoodsFields('".$goodsid."','".$tovarid."','r1194','".$size["id"]."');";
 									}?>
-									<a class="<?=$class?>" data-filter-id="<?=$size["id"]?>" href="#" onclick="<?=$href?>"><?=$size["name"]?></a>
+									<a class="<?=$class?>" data-filter-id="<?=$size["id"]?>" href="javascript:void(0);" onclick="<?=$href?>"><?=$size["name"]?></a>
 								<?}?>
 								<!--<a  class="noitem" href="#">XS</a><a data-filter-id="1" href="#">S</a><a data-filter-id="1" href="#">M</a><a data-filter-id="1" class="active" href="#">L</a><a class="noitem" href="#">XL</a>-->
 							</div>

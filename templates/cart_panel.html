@@ -30,7 +30,7 @@ foreach($arr as $current) {
 				<?php } ?>
 				
 				<div class="header-cart-menu">
-					<a href="#" class="dell">Отменить заказ</a>
+					<a href="javascript:if(confirm('Вы действительно хотите очистить корзину?')){ clear_basket(); }" class="dell">Отменить заказ</a>
 					<a href="/cart/" class="gocart">Продолжить </a>
 				</div>
 			</div>

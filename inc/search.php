@@ -30,15 +30,9 @@ function get_content()
 		$pagesize = setting("default_page_size");
 	}	
 		//require("filters.php");
-
 		//require("sort.php");
-
-		
 		
 			$catalogID = explode(",",$_GET["id"]);
-			
-			
-			
 			if(count($catalogID)  > 1)
 			{
 				$child_array = array();
@@ -161,6 +155,18 @@ function get_content()
 				$where .= " AND goods.goodsid = 0 ";
 			}
 			
+			$goods_groups=isset($_GET["goods_groups"]) ? explode(",",$_GET["goods_groups"]) : array();
+			if(count($goods_groups)){
+				$where .= " AND (0 ";
+				foreach($goods_groups as $goods_group){
+					$where .= " OR $goods_group=1 ";
+				}
+				$where .= ") ";
+			}
+			$sales=isset($_GET["sales"]) ? $_GET["sales"] : 0;
+			if($sales>0){
+				$where .= " AND (price_action>0 AND (price-price_action)>$sales) ";
+			}
 			//echo $where;
 			
 			

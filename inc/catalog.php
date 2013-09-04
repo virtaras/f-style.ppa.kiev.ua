@@ -116,11 +116,21 @@ function get_goods($parent,$child_array = array())
         include(_TEMPLATE."catalog_footer.html");
 		
 }
+global $cur_goods_groups;
+$cur_goods_groups=array();
+$goods_groups=mysql_query("SELECT goods_groups.* FROM goods_groups");
+while($goods_group=mysql_fetch_assoc($goods_groups)){
+	if(isset($_GET[$goods_group["code"]]))$cur_goods_groups[$goods_group["code"]]=prepare($_GET[$goods_group["code"]]);
+}
+global $sales;
+if(isset($_GET["sales"]) && $_GET["sales"]>0) $sales=prepare($_GET["sales"]);
 function get_content()
 {
 	global $head;
 	global $catalog_array;
 	global $currency_array;
+	global $cur_goods_groups;
+	global $sales;
 	if($catalog_array[$_GET["id"]]["scount"] > 0)
 	{
 		$is_catalog_list = 1;
