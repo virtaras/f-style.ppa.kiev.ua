@@ -52,7 +52,9 @@ else
 }
 if(isset($_SESSION["complite"]))
 {
-
+	unset($_SESSION["complite"]);
+	unset($_SESSION["bonus"]);
+	unset($_SESSION["card"]);
 	if(isset($_SESSION["continue_payment"]))
 	{
 		$module = execute_scalar("SELECT module FROM paymenttype WHERE id = ".$_SESSION["continue_payment"]);
@@ -68,9 +70,7 @@ if(isset($_SESSION["complite"]))
 	else
 	{
 		html("basket_after_order");
-	}	
-	unset($_SESSION["complite"]);
-
+	}
 }
 
 }

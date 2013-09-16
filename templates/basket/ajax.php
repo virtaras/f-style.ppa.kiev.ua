@@ -5,6 +5,8 @@ require($_SERVER["DOCUMENT_ROOT"]."//inc/connection.php");
 require($_SERVER["DOCUMENT_ROOT"]."//inc/global.php");
 require($_SERVER["DOCUMENT_ROOT"]."//inc/emarket.php");
 require($_SERVER["DOCUMENT_ROOT"]."//inc/engine.php");
+require($_SERVER["DOCUMENT_ROOT"]."//virtaras/functions.php");
+global $currency_array;
 
 if(isset($_POST["action"])){
 	switch($_POST["action"]){
@@ -117,17 +119,11 @@ if(isset($_POST["action"])){
 			if($blockid>2 && !checkLogged()){
 				$blockid=1;
 			}
+			if($blockid==4){
+				$blockid=3;
+			}
 			$block="block".$blockid;
 			echo $block;
-			break;
-		
-		case "use_bonus":
-			$result="";
-			$user=$_SESSION["login_user"];
-			$bonus=mysql_real_escape_string($_POST["bonus"]);
-			if(checkBonus($user,$bonus)) $result="SUCCESS";
-			else $result="FAIL";
-			echo $result;
 			break;
 			
 		case "saveOrderInfo":
@@ -165,28 +161,38 @@ if(isset($_POST["action"])){
 			break;
 
 		case "getBasketSum":
-			$sum=0;
-			$basket_array = isset($_SESSION["basket"]) ? unserialize($_SESSION["basket"]) :   array();
-			$basket_array = isset($_SESSION["basket"]) ? unserialize($_SESSION["basket"]) :   array();
-			$key = implode(",",array_keys($basket_array));
-			$sql_text = "SELECT goods.* FROM goods WHERE goods.id IN (".$key.")";
-			$sql=mysql_query($sql_text);
-			while($tovar = mysql_fetch_assoc($sql)){
-				$price = get_price($tovar["price_action"] > 0 ? $tovar["price_action"] : $tovar["price"],_DISPLAY_CURRENCY,$tovar["goodsid"],$tovar["currency"],(setting("discount_mode") == 3 && isset($_SESSION["login_user"])) ? true : false);
-				$quantity = $basket_array[$tovar["id"]]->q;
-				$full_price = $price*$quantity;
-				$sum+=$full_price;
-			}
-			if(isset($_SESSION["b_delivery"])){
-				$sum+=execute_scalar("SELECT price FROM delivery WHERE id='".$_SESSION["b_delivery"]."'");
-			}
+			$sum=getOrderSum();
 			echo $sum." ".$currency_array[_DISPLAY_CURRENCY]["shortname"];
 			break;
+			
+		case "use_card":
+			$card_id=prepare($_POST["card_id"]);
+			$card=isset($_SESSION["card"]) ? unserialize($_SESSION["card"]) : execute_row_assoc("SELECT site_cards.* FROM site_cards WHERE card_id='$card_id'");
+			if(isset($card["id"]) && $card["status"]==1){
+				mysql_query("UPDATE site_cards SET status=2 WHERE card_id='".$card["id"]."'");
+				$_SESSION["card"]=serialize($card);
+				//echo "Карта '$card_id' активирована. Сумма на карте - ".$card["price"]."";
+				echo "<span class=\"use_text\">Использована карта: </span><span class=\"use_count\">".$card["price"]." ".$currency_array[_DISPLAY_CURRENCY]["shortname"]."</span>";
+			}else{
+				echo "<span class=\"use_text\">Карта '$card_id' не найдена или уже использована.</span>";
+			}
+			break;
+			
+		case "use_bonus":
+			if(checkLogged()){
+				$bonus=mysql_real_escape_string($_POST["bonus"]);
+				$user=execute_row_assoc("SELECT clients.* FROM clients WHERE id='".$_SESSION["login_user"]["id"]."'");
+				$_SESSION["bonus"]=max(min($bonus,$user["bonus"]),0);
+				//$bonus_left=max($_SESSION["login_user"]["bonus"]-$_SESSION["bonus"],0);
+				//$bonus_upd="UPDATE clients SET bonus=".$bonus_left." WHERE id='".$_SESSION["login_user"]["id"]."'";
+				//mysql_query($bonus_upd);
+				//$_SESSION["login_user"]=execute_row_assoc("SELECT clients.* FROM clients WHERE id='".$_SESSION["login_user"]["id"]."'");
+				//echo "Использовано бонусов: ".$_SESSION["bonus"]." . Осталось бонусов: ".$_SESSION["login_user"]["bonus"];
+				echo "<a href=\"/templates/basket/bonus-popup.php\" class=\"btn-bonus used\">(изменить)</a><span class=\"use_text\">Использовано бонусов: </span><span class=\"use_count\">".$_SESSION["bonus"]." ".$currency_array[_DISPLAY_CURRENCY]["shortname"]."</span>";
+			}else{
+				echo "Авторизируйтесь, чтобы использовать бонус!";
+			}
+			break;
 	}
-}
-
-function checkBonus($user,$bonus){
-	$avaliable=true;
-	return $avaliable;
 }
 ?>

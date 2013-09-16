@@ -32,6 +32,8 @@ RewriteRule ^compare/([0-9]*)?$ index.php?content=compare&id=$1 [L]
 RewriteRule ^compare/([0-9]*)/diff?$ index.php?content=compare&id=$1&diff [L]
 RewriteRule ^new?$ index.php?content=new [L]
 RewriteRule ^login.html?$ index.php?content=login [L]
+
+RewriteRule ^account/([^/\.]+).html?$ index.php?content=account&page=$1 [L]
 RewriteRule ^account.html?$ index.php?content=account [L]
 RewriteRule ^account_registration.html?$ index.php?content=account_registration [L]
 RewriteRule ^account_info.html?$ index.php?content=account_info [L]

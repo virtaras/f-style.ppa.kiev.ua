@@ -20,7 +20,7 @@ function basket_add($id)
 	}
 	else
 	{
-		$arr[$id] = new BasketItem(isset($_GET["q"]) ? (int)$_GET["q"] : 1,isset($_GET["params"]) ? $_GET["params"] : "");
+		$arr[$id] = new BasketItem((isset($_GET["q"]) && (int)$_GET["q"]>0) ? (int)$_GET["q"] : 1,isset($_GET["params"]) ? $_GET["params"] : "");
 	}
 	$_SESSION["basket"] = serialize($arr);
 	set_basket_cookie();
@@ -231,11 +231,12 @@ else if(isset($_GET["create"]))
 		</tr>";
 	
 		//********************************************
+		$order_sum=getOrderSum();
 		$html .= "<tr style='font-weight:bold;background-color:#DDDDDD;'>
 			<td ></td>
 			<td width='50px' style='text-align:center;'></td>
 			<td width='100px' style='text-align:center;'>К оплате:</td>
-			<td width='100px' style='text-align:center;' nowrap><b>".($s+$delivery_summ)." ".$currency_array[$base_currency]["shortname"]."</b></td>
+			<td width='100px' style='text-align:center;' nowrap><b>".($order_sum)." ".$currency_array[$base_currency]["shortname"]."</b></td>
 		</tr>
 		</table><hr /> ";
 		
@@ -259,6 +260,17 @@ else if(isset($_GET["create"]))
 	}	
 	}
 	unset($_SESSION["basket"]);
+	if(isset($_SESSION["card"])){
+		$card=unserialize($_SESSION["card"]);
+		mysql_query("UPDATE site_cards SET status=2 WHERE id='".$card["id"]."'");
+		unset($_SESSION["card"]);
+	}
+	if(isset($_SESSION["bonus"]) && checkLogged()){
+		$user=execute_row_assoc("SELECT clients.* FROM clients WHERE id='".$_SESSION["login_user"]["id"]."'");
+		$bonus=max(min($_SESSION["bonus"],$user["bonus"]),0);
+		mysql_query("UPDATE clients SET bonus=bonus-".$bonus."");
+		unset($_SESSION["bonus"]);
+	}
 	setcookie("basket",0,(time()-60*60*24*30),"/");
 	$_SESSION["complite"] = true;
 	

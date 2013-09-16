@@ -66,6 +66,15 @@ if(isset($_GET["rg"]))
 			mysql_query("UPDATE clients SET confirmstr='$confirmstr' WHERE id='$id'");
 			$_SESSION["login_user"] = execute_row_assoc("SELECT * FROM clients WHERE id = $id");
 			
+			//bonus
+			$bonus_date=setting("bonus_date");
+			$bonus_register=setting("bonus_register");
+			if(time()<strtotime($bonus_date)){
+				$bonus=max($bonus_register,0);
+				mysql_query("UPDATE clients SET bonus=$bonus WHERE id=$id");
+			}
+			//!bonus
+			
 			//Send mail
 			
 			$body = html2("registr_mail");
@@ -81,7 +90,7 @@ if(isset($_GET["rg"]))
 			
 			?>
 			<script language="JavaScript">
-				window.parent.location = '<?=_SITE?>account.html';
+				window.parent.location = '<?=_SITE?>account/main.html';
 			</script>
 				<?
 		}

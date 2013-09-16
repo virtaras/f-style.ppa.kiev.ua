@@ -23,7 +23,7 @@
 
 								<div class="catalog-box-item<?=($ind == 5 ? " last" : "")?>">
 									<a href="<?=$current["tovar_url"]?>">
-										<div class="catalog-box-item-img">
+										<div style="height: 163px" class="catalog-box-item-img no-overflow">
 											<span class="vfix"></span><img src="<?=$img?>" alt="<?=$current["name"]?>"/>
 										</div>
 										<div class="catalog-box-item-title">
@@ -56,7 +56,7 @@
 
 					<div class="catalog-box-item<?=($ind == 5 ? " last" : "")?>">
 						<a href="<?=$current["tovar_url"]?>">
-							<div class="catalog-box-item-img">
+							<div class="catalog-box-item-img no-overflow">
 								<span class="vfix"></span><img src="<?=$img?>" alt="<?=$current["name"]?>"/>
 							</div>
 							<div class="catalog-box-item-title">

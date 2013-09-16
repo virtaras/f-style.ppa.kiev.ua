@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/html; charset=windows-1251');
+header('Content-Type: text/html; charset=utf-8');
 session_start();
 require("inc/constant.php");
 require("inc/connection.php");
@@ -7,7 +7,7 @@ require("inc/global.php");
 if(!isset($_SESSION["login_user"]))
 {
 	?>
-		<script>alert('Для продолжения работы Вам необходимо выполнить вход !');
+		<script>alert('Р”Р»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ СЂР°Р±РѕС‚С‹ Р’Р°Рј РЅРµРѕР±С…РѕРґРёРјРѕ РІС‹РїРѕР»РЅРёС‚СЊ РІС…РѕРґ !');
 		window.parent.document.location.href = "<?=_SITE?>login.html";
 		</script>
 	<?
@@ -48,23 +48,23 @@ if(isset($_GET["type"]))
 			WHERE id = '".$_SESSION["login_user"]["id"]."'");
 			$_SESSION["login_user"] = execute_row_assoc("SELECT * FROM clients WHERE id = ".$_SESSION["login_user"]["id"]);
 			?>
-			<script>alert('Данные успешно сохранены !');</script>
+			<script>alert('Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹ !');</script>
 			<?
 			break;
 		case "registration":
-			if(!empty($_POST["newpassw"]))
+			if($_POST["newpassw"]!="")
 			{
 				if(strlen($_POST["newpassw"]) < 5)
 				{
 					?>
-						<script>alert('Длинна пароля меньше, чем 5 символов !');</script>
+						<script>alert('Р”Р»РёРЅРЅР° РїР°СЂРѕР»СЏ РјРµРЅСЊС€Рµ, С‡РµРј 5 СЃРёРјРІРѕР»РѕРІ !');</script>
 						<?
 					exit();
 				}
 				if($_POST["newpassw"] != $_POST["renewpassw"])
 				{
 					?>
-						<script>alert('Поля Новый пароль и Повторите пароль не совпадают !');</script>
+						<script>alert('РџРѕР»СЏ РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ Рё РџРѕРІС‚РѕСЂРёС‚Рµ РїР°СЂРѕР»СЊ РЅРµ СЃРѕРІРїР°РґР°СЋС‚ !');</script>
 					<?
 					exit();
 				}
@@ -73,7 +73,7 @@ if(isset($_GET["type"]))
 					if(md5($_POST["oldpassw"]) != $_SESSION["login_user"]["passw"])
 					{
 						?>
-						<script>alert('Вы ввели неверный Старый пароль !');</script>
+						<script>alert('Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅС‹Р№ РЎС‚Р°СЂС‹Р№ РїР°СЂРѕР»СЊ !');</script>
 					<?
 					exit();
 					}
@@ -83,7 +83,7 @@ if(isset($_GET["type"]))
 						
 						$_SESSION["login_user"]["passw"] = md5($_POST["newpassw"]);
 							?>
-								<script>alert('Данные успешно сохранены !');</script> 
+								<script>alert('Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹ !');</script> 
 							<?
 							exit();
 					}
@@ -91,7 +91,7 @@ if(isset($_GET["type"]))
 				}
 			}
 			?>
-								<script>alert('Данные успешно сохранены !');</script>
+								<script>alert('Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹ !');</script>
 							<?
 			break;	
 			

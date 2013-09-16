@@ -1,10 +1,4 @@
 <?php
-/*
-$mtime = microtime(); 
-$mtime = explode(" ",$mtime); 
-$mtime = $mtime[1] + $mtime[0]; 
-$starttime = $mtime; 
-*/
 session_start();
 ini_set("display_errors","On");
 include("inc/protection.php");
@@ -14,38 +8,11 @@ include("inc/global.php");
 include("inc/engine.php");
 include("virtaras/functions.php");
 include_once(_DIR."inc/cache/menu.php");
-/*
-function mime_header_encode($str, $data_charset, $send_charset) {
-  if($data_charset != $send_charset) {
-    $str = iconv($data_charset, $send_charset, $str);
-  }
-  return '=?' . $send_charset . '?B?' . base64_encode($str) . '?=';
-}
-$name_from= $_SERVER['HTTP_HOST'];// имя отправителя
- $email_from="no_reply@".str_replace("www.","",$_SERVER['HTTP_HOST']); // email отправителя
-                        $name_to=""; // имя получателя
-                        $email_to="virtaras@ppa.kiev.ua"; // email получателя
-                        $data_charset="UTF-8"; // кодировка переданных данных
-                        $send_charset="UTF-8"; // кодировка письма
-                        $subject= "BBBBBB "; // тема письма
-                        $body="asdfasdf";
-$to = mime_header_encode($name_to, $data_charset, $send_charset)
-                 . ' <' . $email_to . '>';
-  $subject = mime_header_encode($subject, $data_charset, $send_charset);
-  $from =  mime_header_encode($name_from, $data_charset, $send_charset) 
-                     .' <' . $email_from . '>'; 
-  if($data_charset != $send_charset) {
-    $body = iconv($data_charset, $send_charset, $body); 
-  }
-  $headers = "From: $from\r\n";
-  $headers .= "Content-type: text/html; charset=$send_charset\r\n";
-  $headers .= "Mime-Version: 1.0\r\n";
-  $headers .= "X-Mailer: PHP/".phpversion()."\r\n";  
-mail($to, $subject, $body, $headers);
-echo htmlspecialchars($to.$subject.$body.$headers);
-exit();
-//send_mime_mail($_SERVER['HTTP_HOST'], "no_reply@".str_replace("www.","",$_SERVER['HTTP_HOST']), "","virtaras@ppa.kiev.ua","UTF-8", "UTF-8", "BBBBBB ", "asdfasdf" );
-*/
+//default-basket-values
+$_SESSION["b_delivery"]=isset($_SESSION["b_delivery"]) ? $_SESSION["b_delivery"] : 4;
+$_SESSION["b_paymenttype"]=isset($_SESSION["b_paymenttype"]) ? $_SESSION["b_paymenttype"] : 1;
+//!default-basket-values
+
 $content_type = "content";
 $title = "";
 $description = "";

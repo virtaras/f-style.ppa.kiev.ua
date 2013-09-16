@@ -20,7 +20,7 @@
 	$tovar = execute_row_assoc("SELECT goods.*,exist_type.name as extype,IF(catalog.one_name != '',catalog.one_name,catalog.name) as cname,brands.name as brandname, brands.urlname as brandurl 
 	FROM goods
 	LEFT JOIN exist_type ON exist_type.id = goods.exist_type
-	INNER JOIN catalog ON catalog.id = goods.parentid
+	LEFT JOIN catalog ON catalog.id = goods.parentid
 	LEFT JOIN brands ON brands.id = goods.brand
 	$where");
 	

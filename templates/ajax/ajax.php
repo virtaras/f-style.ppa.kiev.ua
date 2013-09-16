@@ -175,7 +175,7 @@ if(isset($_POST["action"])){
 						<a class="button white star margin-style1" href="javascript:addIzbrannoe('<?=$goodsid?>')">В избранное</a>
 						<!--<a class="button white question margin-style1" href="#">Задать вопрос</a>-->
 						<div class="clear" style="height:15px;"></div>
-						<img src="<?=$verstkaurl?>images/socials.png" alt=""/>
+						<img src="/templates/images/socials.png" alt=""/>
 					</div>
 				</div>
 			</div>
@@ -194,13 +194,19 @@ if(isset($_POST["action"])){
 			//////////////////////////showGoodsPreview///////////////////////////////
 			
 		case "showIzbrannoe":
-			$izbrannoe=isset($_COOKIE["izbrannoe"]) ? unserialize(stripslashes($_COOKIE["izbrannoe"])) : array();
-			print_r($izbrannoe);
+			include _DIR."templates/ajax/izbrannoe.php";
 			break;
 
 		case "addIzbrannoe":
 			$izbrannoe=isset($_COOKIE["izbrannoe"]) ? unserialize(stripslashes($_COOKIE["izbrannoe"])) : array();
 			if(array_search($_POST["goodsid"],$izbrannoe)===false && $_POST["goodsid"]!="" && $_POST["goodsid"]>0) $izbrannoe[]=$_POST["goodsid"];
+			$expire = time() + 60*60*24*30;
+			setcookie("izbrannoe", serialize($izbrannoe), $expire, '/');
+			break;
+			
+		case "removeIzbrannoe":
+			$izbrannoe=isset($_COOKIE["izbrannoe"]) ? unserialize(stripslashes($_COOKIE["izbrannoe"])) : array();
+			if($_POST["goodsid"]!="" && $_POST["goodsid"]>0) unset($izbrannoe[array_search($_POST["goodsid"],$izbrannoe)]);
 			$expire = time() + 60*60*24*30;
 			setcookie("izbrannoe", serialize($izbrannoe), $expire, '/');
 			break;
@@ -235,8 +241,8 @@ if(isset($_POST["action"])){
 			$tovar_url = get_product_url($r);
 			?>
 				<a href="<?=$tovar_url?>">
-							<div class="catalog-box-item-img">
-								<span class="vfix"></span><img src="<?=$img?>" alt="<?=$r["name"]?>" style="vertical-align:top;height:232px;"/>
+							<div class="catalog-box-item-img no-overflow">
+								<span class="vfix"></span><img src="<?=$img?>" alt="<?=$r["name"]?>" style="vertical-align:top;height:300px;"/>
 							</div>
 							<div class="catalog-box-item-title">
 								<span class="vfix"></span><span><?=$r["name"]?></span> 

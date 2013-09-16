@@ -8,7 +8,7 @@
 		<th>Сумма</th>
 	</tr>
 	<?
-	$details = db_query("SELECT ordersrow.id as oid,ordersrow.goodsname,ordersrow.vname,ordersrow.quantity,ordersrow.price as rowprice,ordersrow.goodsid,goods.* FROM ordersrow 
+	$details = db_query("SELECT ordersrow.id as oid,ordersrow.goodsname,ordersrow.vname,ordersrow.quantity as or_quantity,ordersrow.price as rowprice,ordersrow.goodsid,goods.* FROM ordersrow 
 LEFT JOIN goods ON goods.id = ordersrow.goodsid
 WHERE ordersrow.parentid = '$row[id]'");
 $s = 0;
@@ -36,12 +36,12 @@ $s = 0;
 		?>
 		</div>
 		</td>
-		<td class='tr'><?=$r["quantity"]?></td>
+		<td class='tr'><?=$r["or_quantity"]?></td>
 		<td class='tr'><?=$r["rowprice"]?></td>
-		<td class='tr'><?=$r["quantity"]*$r["rowprice"]?></td>
+		<td class='tr'><?=$r["or_quantity"]*$r["rowprice"]?></td>
 	</tr>
 		<?
-		$s = $s + ($r["quantity"]*$r["rowprice"]);
+		$s = $s + ($r["or_quantity"]*$r["rowprice"]);
 	}
 	?>
 	<tr>

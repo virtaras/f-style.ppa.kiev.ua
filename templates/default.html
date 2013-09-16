@@ -63,13 +63,15 @@
 			$arr = get_products(0,FALSE,8,""," ORDER BY goods.r1197 DESC, goods.id DESC, rand()");
 			foreach($arr as $tovar)
 			{
-			$img =  getResizeImageById($tovar["imid"],"h",array("height"=>163),$tovar["imformat"]);
+			//$img =  getResizeImageById($tovar["imid"],"h",array("height"=>163),$tovar["imformat"]);
+			$image =  getTovarImage($tovar);
+			$img =  getResizeImageById($image["id"],"h",array("height"=>163),$image["format"]);
 			?>
 				<li>
 					<div class="last-wards-box-item">
 						<a href="<?=$tovar["tovar_url"]?>">
 							<div class="last-wards-box-item-img">
-								<img src="<?=$img?>" alt="<?=$tovar["name"]?>"/>
+								<img src="<?=$img?>" alt="<?=$tovar["name"]?>" style="height:163px;" />
 							</div>
 							<div class="last-wards-box-item-title"><?=$tovar["name"]?></div>
 							<div class="last-wards-box-item-dscr"><?=$tovar["description"]?></div>

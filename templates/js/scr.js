@@ -83,6 +83,9 @@ function magicSumm(box){
 	if(globalSum>0){
 		$.post("/templates/basket/ajax.php",{action:"updBaketValues",values:JSON.stringify(basket_values)},afterUpdateBasketValues);
 	}
+	if(typeof(showBasketSum)!='undefined'){
+		showBasketSum();
+	}
 }
 
 
@@ -94,7 +97,7 @@ function crasherBox(item,caller){
 }
 
 function wonderClick(){
-	$('.discount-card-box .button').click(function(){
+	/*$('.discount-card-box .button').click(function(){
 		$.fancybox({
 			href		: '#bonus-card',
 			padding		: 20
@@ -102,7 +105,7 @@ function wonderClick(){
 		discount= {money:0,percent:7};
 		magicSumm($('.cart-box-result-item'));
 		return false;
-	});
+	});*/
 	$('.bonus-used a').click(function(){
 		$.fancybox({
 			href		: '#bonus-card',
@@ -286,7 +289,7 @@ function reload_products()
     var color = new Array;
 	$('.colorType').find("li").each(function(){
 			if($(this).is('.active')){
-				color.push($(this).attr('data-filter-id'));
+				color.push($(this).attr('data-tag-index'));
 			}
 		});
 	if(color.toString() != "") {
@@ -513,6 +516,7 @@ $(function(){
 
 $(document).ready(function(){
 	documentReady();
+	handleLoadHeader();
 });
 
 $(window).load(function(){
@@ -616,7 +620,16 @@ function documentReady(){
         // Configuration goes here
     });
 	
+	$('.visual-preview-box-thumbs a').click(function(){		
+		$('.visual-preview-box-slider .thumbNav a:eq('+$('.visual-preview-box-thumbs a').index($(this))+')').click();
+		return false;
+	});
 	
+	$(document).on('click','.close-btn',function(){
+		$.fancybox.close();
+	});
+}
+function handleLoadHeader(){
 	$('.header-enter-box').hide();
 	$('.header-enter-butt').click(function(){
 		if($(this).is('.active')){
@@ -629,19 +642,12 @@ function documentReady(){
 			$('.header-enter-box[data-tab-index='+index+']').show();
 		}
 	});
-	
-	
-	$('.visual-preview-box-thumbs a').click(function(){		
-		$('.visual-preview-box-slider .thumbNav a:eq('+$('.visual-preview-box-thumbs a').index($(this))+')').click();
-		return false;
-	});
-	
-	$(document).on('click','.close-btn',function(){
-		$.fancybox.close();
-	});
 }
-
 function handleLoad(){
+	documentReady();
+	windowLoad();
+}
+function handleLoadTovar(){
 	documentReady();
 	windowLoad();
 }

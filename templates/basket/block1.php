@@ -1,5 +1,5 @@
 <?
-//print_r($basket_array);
+$delivery_summ=execute_row_assoc("SELECT * FROM delivery WHERE id='".$_SESSION["b_delivery"]."'");
 ?>
 <div id="block1">
 <div class="cart-box-title"> КОРЗИНА <!--<a href="#" class="gonext">ПРодолжить</a>--> </div>
@@ -76,24 +76,36 @@
     <div class="title">Подытог:</div>
     <div class="global-sum vall"></div>
   </div>
+  <div class="global-sum-item">
+    <div class="title">Доставка:</div>
+    <div class="vall"><?=$delivery_summ["price"]." ".$currency_array[_DISPLAY_CURRENCY]["shortname"]?></div>
+  </div>
   <div class="main-sep nm"></div>
+  <div id="card_info"></div>
+  <div id="use_bonus_info"></div>
   <div class="global-sum-item all">
     <div class="title">Итого:</div>
-    <div class="global-sum-all vall"></div>
+    <div class="global-sum-all vall full_summ"></div>
   </div>
 </div>
 <input type="hidden" value="2" name="delivery">
-
+<?if(!isset($_SESSION["card"])){?>
 <div style="float: left" class="discount-card-box">
   <div class="title">Подарочная карта:</div>
-  <input type="text" placeholder="Номер карты" />
-  <a href="#" class="button">Применить</a>
-  
+  <input type="text" placeholder="Номер карты" id="card_number" />
+  <a href="javascript:use_card($('#card_number').val());" class="button">Применить</a>
 </div>
-<a href="/templates/basket/bonus-popup.php" class="btn-bonus">Использовать бонусы</a>
+<?}else{?>
+	<script>use_card('<?=$_SESSION["card"]["card_id"]?>');</script>
+<?}?>
+<?if(!(isset($_SESSION["bonus"]) && $_SESSION["bonus"]>0)){?>
+	<a href="/templates/basket/bonus-popup.php" class="btn-bonus">Использовать бонусы</a>
+<?}else{?>
+	<script>confirmBonus('<?=$_SESSION["bonus"]?>');</script>
+<?}?>
 
 <div style=" clear:both"></div>
-<div class="cart-box-nav"> <a href="#" class="goprev"> Вернуться в каталог</a>
+<div class="cart-box-nav"> <a href="/katalog-c69/" class="goprev"> Вернуться в каталог</a>
   <!--<input class="next" type="button" onclick="hideShow('block1','block2');" value="Продолжить"/>-->
   
   <a href="javascript:showBlock('block2');" class="newnext">Далее</a>

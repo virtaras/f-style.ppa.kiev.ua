@@ -80,8 +80,6 @@ function showBlock(blockid){
 	window.location.hash='#'+blockid;
 }
 
-top.addEventListener('load', handleBasketLoad, false );
-
 function array_search( needle, haystack, strict ) {
 	var strict = !!strict;
 	for(var key in haystack){
@@ -93,10 +91,13 @@ function array_search( needle, haystack, strict ) {
 }
 
 function afterConfirmBonus(res){
-	showAlert(res);
+	//showAlert(res);
+	$("#use_bonus").hide();
+	$("#use_bonus_info").html(res);
+	$(".close-btn").click();
+	showBasketSum();
 }
-function confirmBonus(){
-	var bonus=$("#use_bonus").val();
+function confirmBonus(bonus){
 	$.post("/templates/basket/ajax.php",{action:"use_bonus",bonus:bonus},afterConfirmBonus);
 }
 function slideToBasket(){
@@ -160,8 +161,18 @@ function setFieldValue(fieldname,fieldinfo){
 	setTimeout(showBasketSum(),2000);	
 }
 function afterShowBasketSum(res){
-	$("#full_summ").html(res);
+	$(".full_summ").html(res);
 }
 function showBasketSum(){
 	$.post("/templates/basket/ajax.php",{action:"getBasketSum"},afterShowBasketSum);
 }
+function after_use_card(res){
+	$("#card_info").html(res);
+	showBasketSum();
+}
+function use_card(card_id){
+	$.post("/templates/basket/ajax.php",{action:"use_card",card_id:card_id},after_use_card);
+}
+$(document).ready(function(){
+	top.addEventListener('load', handleBasketLoad, false );
+})

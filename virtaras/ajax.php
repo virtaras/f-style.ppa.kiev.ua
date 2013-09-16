@@ -44,6 +44,24 @@ if(isset($_POST["action"])){
 			echo "Корзина очищена!";
 			break;
 			
+		case "add_otlozhenie":
+			$otlozhenie=isset($_COOKIE["otlozhenie"]) ? unserialize(stripslashes($_COOKIE["otlozhenie"])) : array();
+			if(array_search($_POST["goodsid"],$otlozhenie)===false && $_POST["goodsid"]!="" && $_POST["goodsid"]>0) $otlozhenie[]=$_POST["goodsid"];
+			$expire = time() + 60*60*24*30;
+			setcookie("otlozhenie", serialize($otlozhenie), $expire, '/');
+			break;
+		
+		case "remove_otlozhenie":
+			$otlozhenie=isset($_COOKIE["otlozhenie"]) ? unserialize(stripslashes($_COOKIE["otlozhenie"])) : array();
+			if($_POST["goodsid"]!="" && $_POST["goodsid"]>0) unset($otlozhenie[array_search($_POST["goodsid"],$otlozhenie)]);
+			$expire = time() + 60*60*24*30;
+			setcookie("otlozhenie", serialize($otlozhenie), $expire, '/');
+			break;
+			
+		case "show_otlozhenie":
+			include _DIR."templates/ajax/otlozhenie.php";
+			break;
+			
 	}
 }
 ?>

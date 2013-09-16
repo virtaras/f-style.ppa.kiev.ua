@@ -194,7 +194,7 @@ switch($_POST["action"]){
 	  
 	  <div>
 		<div class="title conft">Итого сума к оплате:</div>
-		<div class="vall confgl" id="full_summ"><?=($goods_price+$delivery_price)?> <?=$currency_array[_DISPLAY_CURRENCY]["shortname"]?></div>
+		<div class="vall confgl full_summ"><?=($goods_price+$delivery_price)?> <?=$currency_array[_DISPLAY_CURRENCY]["shortname"]?></div>
 	  </div>
 	  <!------------#Ціна--------------> 
 	</div>

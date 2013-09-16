@@ -131,6 +131,14 @@ function get_content()
 	global $currency_array;
 	global $cur_goods_groups;
 	global $sales;
+	foreach(array_keys($cur_goods_groups) as $goods_group){
+		$goods_group_file=_DIR."templates/goods_groups/".$goods_group.".php";
+		if(file_exists($goods_group_file)){
+			include $goods_group_file;
+		}
+	}
+	$sales_file=_DIR."templates/goods_groups/sales.php";
+	if(isset($sales) && $sales>0 && file_exists($sales_file)){ include $sales_file; }
 	if($catalog_array[$_GET["id"]]["scount"] > 0)
 	{
 		$is_catalog_list = 1;

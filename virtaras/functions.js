@@ -29,24 +29,29 @@ function showAlert(msg){
 function clear_basket(){
 	$.post("/virtaras/ajax.php",{action:"clear_basket"},function(r){document.location.reload(true);});
 }
-/*
-function afterGetIdByGoodsidFilters(res){
-	console.log(res,'asdf');
-	return res;
+
+function load_ajax_info(){
+	show_cart();
+	showIzbrannoe();
+	//show_otlozhenie();
 }
-function getIdByGoodsidFilters(goodsid,filters){
-	var id=-1;
-	$.post("/virtaras/ajax.php",{action:"getIdByGoodsidFilters",filters:filters},
-		function(res){afterGetIdByGoodsidFilters(res);variable=2;});
-		
-	$.when($.ajax("/virtaras/ajax.php")).then(function(data, textStatus, jqXHR){
-		alert( jqXHR.status ); // alerts 200
-		id=data;
-		return id;
-	});
-//	$.ajax({
-//		type: "GET",
-//		url: "test.js",
-//		dataType: "script"
-//	});
-}*/
+///////////Otlozhenie
+function after_add_otlozhenie(res){
+	show_otlozhenie();
+}
+function add_otlozhenie(goodsid){
+	$.post("/virtaras/ajax.php",{action:"add_otlozhenie",goodsid:goodsid},after_add_otlozhenie);
+}
+function after_show_otlozhenie(res){
+	$(".otlozhenie-box").html(res);
+}
+function show_otlozhenie(){
+	$.post("/virtaras/ajax.php",{action:"show_otlozhenie"},after_show_otlozhenie);
+}
+function after_remove_otlozhenie(res){
+	show_otlozhenie();
+}
+function remove_otlozhenie(goodsid){
+	$.post("/virtaras/ajax.php",{action:"remove_otlozhenie",goodsid:goodsid},after_remove_otlozhenie);
+}
+///////////!Otlozhenie

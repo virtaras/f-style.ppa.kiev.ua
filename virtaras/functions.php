@@ -62,4 +62,33 @@ function getTovarByFieldsFromArr($goods,$fields){
 	}
 	return false;
 }
+function getOrderSum(){
+	$sum=0;
+	$basket_array = isset($_SESSION["basket"]) ? unserialize($_SESSION["basket"]) :   array();
+	$basket_array = isset($_SESSION["basket"]) ? unserialize($_SESSION["basket"]) :   array();
+	$key = implode(",",array_keys($basket_array));
+	$sql_text = "SELECT goods.* FROM goods WHERE goods.id IN (".$key.")";
+	$sql=mysql_query($sql_text);
+	while($tovar = mysql_fetch_assoc($sql)){
+		$price = get_price($tovar["price_action"] > 0 ? $tovar["price_action"] : $tovar["price"],_DISPLAY_CURRENCY,$tovar["goodsid"],$tovar["currency"],(setting("discount_mode") == 3 && isset($_SESSION["login_user"])) ? true : false);
+		$quantity = $basket_array[$tovar["id"]]->q;
+		$full_price = $price*$quantity;
+		$sum+=$full_price;
+	}
+	if(isset($_SESSION["b_delivery"])){
+		$sum+=execute_scalar("SELECT price FROM delivery WHERE id='".$_SESSION["b_delivery"]."'");
+	}
+	if(isset($_SESSION["card"])){
+		$card=unserialize($_SESSION["card"]);
+		$sum-=$card["price"];
+	}
+	if(isset($_SESSION["bonus"]) && checkLogged()){
+		$user=execute_row_assoc("SELECT clients.* FROM clients WHERE id='".$_SESSION["login_user"]["id"]."'");
+		$bonus=max(min($_SESSION["bonus"],$user["bonus"]),0);
+		$_SESSION["bonus"]=$bonus;
+		$sum-=$bonus;
+	}
+	$sum=max($sum,0);
+	return $sum;
+}
 ////////////ENGINE

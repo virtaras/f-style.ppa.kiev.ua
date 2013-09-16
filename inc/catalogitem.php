@@ -2,6 +2,7 @@
 if(!isset($result_sql))
 {
 	$result_sql = mysql_query($sql_text);
+	
 }
 $gcount = mysql_num_rows($result_sql);
 $ind = 0;

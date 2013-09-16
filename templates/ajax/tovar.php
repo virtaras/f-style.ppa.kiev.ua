@@ -38,14 +38,26 @@ if(isset($_POST["action"])){
 						<ul>
 							<?$goodind=1;
 							foreach($imagesOfColor as $goodimage){?>
-								<li><span class="vfix"></span><img src="/images/files/<?=$goodimage["image"]?>" alt="<?=$goodimage["link"]?>" style="height:525px;" /></li>
+								<li><span class="vfix"></span>
+								<span class="vfix"></span>
+								<span class="visual-preview-box-slider-item ">
+								<div id="wrap" style="top:0px;z-index:9999;position:relative;">
+								<a href="/images/files/<?=$goodimage["image"]?>" class="cloud-zoom" style="position: relative; display: block;">
+								<img src="/images/files/<?=$goodimage["image"]?>" alt="<?=$goodimage["image"]?>" style="height:525px;"></a>
+								<div class="mousetrap" style=" z-index: 999; position: absolute; width: 415px; height: 193px; left: 0px; top: 0px; cursor: auto;">
+								</div>
+								</div>
+								</span>								
+								<!--<img src="/images/files/<?=$goodimage["image"]?>" alt="<?=$goodimage["link"]?>" style="height:525px;" />--></li>
 							<?}?>
 						</ul>
 					</div>
 					<div class="visual-preview-box-thumbs">
 						<?$goodind=1;
 						foreach($imagesOfColor as $goodimage){?>
-							<a data-slider-index="<?=$goodind?>" href="javascript:void(0);"><img src="/image/frame/images/60/60/<?=$goodimage["id"]?>.jpg" alt=""/></a>
+							<a data-slider-index="<?=$goodind?>" style="width: 74px; height: 82px; overflow: hidden; text-align: center" href="javascript:void(0);">
+							<!--<img  style="max-height: 82px" src="/image/frame/images/74/82/<?=$goodimage["id"]?>.jpg" alt=""/></a>-->
+							<img  style="max-height: 82px; width: auto" src="/images/files/<?=$goodimage["image"]?>" alt=""/></a>
 						<?}?>
 					</div>
 				</div>
@@ -59,7 +71,7 @@ if(isset($_POST["action"])){
 						<ul>
 							<?$goodind=1;
 							foreach($imagesOfColor as $goodimage){?>
-								<li style="min-width:417px;"><span class="vfix"></span>
+								<li><span class="vfix"></span>
 								<span class="visual-preview-box-slider-item ">
 								<div id="wrap" style="top:0px;z-index:9999;position:relative;">
 								<a href="/images/files/<?=$goodimage["image"]?>" class="cloud-zoom" style="position: relative; display: block;">
@@ -77,7 +89,9 @@ if(isset($_POST["action"])){
 					<div class="visual-preview-box-thumbs">
 						<?$goodind=1;
 						foreach($imagesOfColor as $goodimage){?>
-							<a data-slider-index="<?=$goodind?>" href="javascript:void(0);"><img src="/image/frame/images/60/60/<?=$goodimage["id"]?>.jpg" alt=""/></a>
+							<a data-slider-index="<?=$goodind?>" style="width: 74px; height: 82px; overflow: hidden; text-align: center" href="javascript:void(0);">
+							<!--<img style="max-height: 82px" src="/image/frame/images/74/82/<?=$goodimage["id"]?>.jpg" alt=""/></a>-->
+							<img  style="max-height: 82px; width: auto" src="/images/files/<?=$goodimage["image"]?>" alt=""/></a>
 						<?}?>
 					</div>
 				</div>
@@ -160,7 +174,7 @@ if(isset($_POST["action"])){
 						</div>
 					</div>
 					<div class="stuff-dscr-socials jNice">
-						<a class="button white star" href="javascript:addIzbrannoe('<?=$tovar["id"]?>')">В избранное</a>
+						<a class="button white star" href="javascript:addIzbrannoe('<?=$good["id"]?>')">В избранное</a>
 						<!--<a class="button white question" href="#">Задать вопрос</a>-->
 						<div class="" style="height:15px;"></div>
 						<img src="/templates/images/socials.png" alt=""/>
